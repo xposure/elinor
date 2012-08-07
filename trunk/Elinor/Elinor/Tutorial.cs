@@ -313,7 +313,7 @@ namespace Elinor
         {
             Main.Dispatcher.Invoke(new Action(delegate
                                                   {
-                                                      Main.tabControl1.SelectedIndex = i;
+                                                      Main.tcMain.SelectedIndex = i;
                                                   }));
         }
 

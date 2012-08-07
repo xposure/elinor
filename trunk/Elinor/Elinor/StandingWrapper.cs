@@ -1,19 +1,19 @@
 ﻿namespace Elinor
 {
-    class StandingWrapper
+    internal class StandingWrapper
     {
-        public string Name;
-        public double Standing;
+        private readonly string _name;
+        internal double Standing { get; private set; }
 
-        public StandingWrapper(string name, double standing)
+        internal StandingWrapper(string name, double standing)
         {
-            Name = name;
+            _name = name;
             Standing = standing;
         }
 
         public override string ToString()
         {
-            return Name;
+            return _name;
         }
     }
 }

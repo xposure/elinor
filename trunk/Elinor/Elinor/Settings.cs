@@ -7,15 +7,13 @@ namespace Elinor
     [Serializable]
     public class Settings : ISerializable
     {
-        internal string ProfileName;
-        internal double MarginThreshold;
-        internal double MinimumThreshold;
-        internal int Accounting;
-        internal int BrokerRelations;
-        internal double FactionStanding;
-        internal double CorpStanding;
-      
-
+        internal string ProfileName { get; set; }
+        internal double MarginThreshold { get; set; }
+        internal double MinimumThreshold { get; set; }
+        internal int Accounting { get; set; }
+        internal int BrokerRelations { get; set; }
+        internal double FactionStanding { get; set; }
+        internal double CorpStanding { get; set; }
 
         public Settings()
         {

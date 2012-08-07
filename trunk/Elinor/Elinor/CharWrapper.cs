@@ -2,10 +2,11 @@
 {
     internal class CharWrapper
     {
-        public string Charname;
-        public string VCode;
-        public long CharId;
-        public long KeyId;
+        internal long CharId { get; set; }
+        internal long KeyId { get; set; }
+        internal string Charname { get; set; }
+        internal string VCode { get; set; }
+     
 
         public override string ToString()
         {
