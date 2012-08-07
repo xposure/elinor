@@ -533,7 +533,7 @@ namespace Elinor
 
         private void MiSubmitBugClick(object sender, RoutedEventArgs e)
         {
-            Process.Start(@"http://redd.it/xl6i5");
+            Process.Start(@"https://code.google.com/p/elinor/issues/list");
         }
 
         private void MiSubmitFeatureClick(object sender, RoutedEventArgs e)
