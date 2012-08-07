@@ -8,17 +8,16 @@
         internal static void SerializeObject(string filename, Settings objectToSerialize)
         {
             Stream stream = File.Open(filename, FileMode.Create);
-            BinaryFormatter bFormatter = new BinaryFormatter();
+            var bFormatter = new BinaryFormatter();
             bFormatter.Serialize(stream, objectToSerialize);
             stream.Close();
         }
 
         internal static Settings DeSerializeObject(string filename)
         {
-            Settings objectToSerialize;
             Stream stream = File.Open(filename, FileMode.Open);
-            BinaryFormatter bFormatter = new BinaryFormatter();
-            objectToSerialize = (Settings)bFormatter.Deserialize(stream);
+            var bFormatter = new BinaryFormatter();
+            var objectToSerialize = (Settings)bFormatter.Deserialize(stream);
             stream.Close();
             return objectToSerialize;
         }

@@ -7,8 +7,8 @@ namespace Elinor
 {
     class CalculateDataThread
     {
-        private double _sellPrice, _buyPrice;
-        private MainWindow _main;
+        private readonly double _sellPrice, _buyPrice;
+        private readonly MainWindow _main;
 
         public CalculateDataThread(double sell, double buy,MainWindow main)
         {
@@ -19,13 +19,11 @@ namespace Elinor
 
         internal static double BrokerFee(int brokerRelations, double corpStanding, double factionStanding)
         {
-            //BrokerFee % = (1.000 % – 0.050 % × BrokerRelationsSkillLevel) / 2 ^ (-0.14 × FactionStanding - 0.06 × CorporationStanding)
             return ((.01 - (brokerRelations * .0005)) / Math.Pow(2, ((0.14 * factionStanding) + (.06 * corpStanding))));
         }
 
         internal static double SalesTax(int accounting)
         {
-            //return .015 - .015 * (accounting * .1);
             return .015*(1 - (accounting*.1));
         }
 
@@ -38,13 +36,11 @@ namespace Elinor
             double revenue = ((_sellPrice - .01) - (_sellPrice - .01) * brokerFee - (_sellPrice - .01) * salesTax);
             double cos = (_buyPrice + .01) + (_buyPrice + .01)*brokerFee;
 
-            //double tenPercent = -(((.1*revenue) - revenue)/(1 + brokerFee));
-
-            DataTable samples = new DataTable();
+            var samples = new DataTable();
             samples.Columns.Add("Size", typeof (string));
             samples.Columns.Add("CoS", typeof(string));
             samples.Columns.Add("Profit", typeof (string));
-            DataTable samplesF = new DataTable();
+            var samplesF = new DataTable();
             samplesF.Columns.Add("Size", typeof(string));
             samplesF.Columns.Add("CoS", typeof(string));
             samplesF.Columns.Add("Profit", typeof(string));
@@ -61,7 +57,6 @@ namespace Elinor
                                                            _main.lblProfit.Content = String.Format("{0:n} ISK", revenue - cos);
                                                            double margin = 100 * (revenue - cos) / revenue;
                                                            _main.lblMargin.Content = String.Format("{0:n}%", margin);
-                                                           //_main.lbl10pat.Content = String.Format("{0:n} ISK", tenPercent);
                                                            double markup = 100*(revenue - cos)/cos;
                                                            _main.lblMarkup.Content = Math.Abs(markup) < 10000 ? 
                                                                String.Format("{0:n}%", markup) :

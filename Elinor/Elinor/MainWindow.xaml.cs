@@ -22,7 +22,7 @@ namespace Elinor
         private readonly DirectoryInfo _logdir = new DirectoryInfo(Environment.GetEnvironmentVariable("USERPROFILE") + @"\Documents\EVE\logs\marketlogs");
         private readonly DirectoryInfo _profdir = new DirectoryInfo("profiles");
         private readonly FileSystemWatcher _fileSystemWatcher = new FileSystemWatcher();
-        internal Settings Settings;
+        internal Settings Settings { get; set; }
         private FileSystemEventArgs _lastEvent;
 
         double _sell, _buy;

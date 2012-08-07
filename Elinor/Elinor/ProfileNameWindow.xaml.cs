@@ -10,14 +10,14 @@ namespace Elinor
     /// </summary>
     public partial class ProfileNameWindow
     {
-        public string ProfileName;
+        internal string ProfileName { get; private set; }
 
         public ProfileNameWindow()
         {
             InitializeComponent();
         }
 
-        private void Button1Click(object sender, RoutedEventArgs e)
+        private void BtnOkClick(object sender, RoutedEventArgs e)
         {
             bool ok = true;
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
@@ -47,7 +47,7 @@ namespace Elinor
             }
         }
 
-        private void Button2Click(object sender, RoutedEventArgs e)
+        private void BtnCancelClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -65,7 +65,7 @@ namespace Elinor
         private void WindowKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Escape) Close();
-            if(e.Key == Key.Enter) Button1Click(this, null);
+            if(e.Key == Key.Enter) BtnOkClick(this, null);
         }
     }
 }

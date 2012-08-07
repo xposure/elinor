@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 
 namespace Elinor
 {
-    public class DropDownButton : ToggleButton
+    internal class DropDownButton : ToggleButton
     {
         public static readonly DependencyProperty DropDownProperty = DependencyProperty.Register("DropDown", typeof(ContextMenu), typeof(DropDownButton), new UIPropertyMetadata(null));
         

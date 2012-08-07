@@ -5,7 +5,7 @@ namespace Elinor
 {
     class CSVReader
     {
-        public static List<List<string>> GetTableFromCSV(string path)
+        internal static List<List<string>> GetTableFromCSV(string path)
         {
             var result = new List<List<string>>();
             StreamReader sr = null;
