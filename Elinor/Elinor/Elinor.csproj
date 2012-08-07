@@ -78,14 +78,17 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EveAI.Core">
-      <HintPath>D:\Development\EveAi\EveAI.Core.dll</HintPath>
+    <Reference Include="EveAI.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\EveAI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EveAI.Live">
-      <HintPath>D:\Development\EveAi\EveAI.Live.dll</HintPath>
+    <Reference Include="EveAI.Live, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\EveAI.Live.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>D:\Development\EveAi\Ionic.Zip.Reduced.dll</HintPath>
+    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -221,6 +224,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="ionic.zip.license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EveAI.Core.dll" />
+    <Content Include="EveAI.Live.dll" />
+    <Content Include="Ionic.Zip.Reduced.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
