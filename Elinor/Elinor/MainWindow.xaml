@@ -1,0 +1,204 @@
+﻿<Window x:Class="Elinor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Elinor="clr-namespace:Elinor" Title="Elinor" Height="600" Width="525" MinHeight="600" MinWidth="525" Closed="WindowClosed" Loaded="WindowLoaded" ResizeMode="CanResize" Icon="/Elinor;component/Images/mainicon.png">
+    <Window.Resources>
+        <RoutedUICommand x:Key="PinWindow" Text="Pin Window" />
+        <RoutedUICommand x:Key="AutoCopy" Text="Auto Copy" />
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource PinWindow}" Executed="PinWindow" />
+        <CommandBinding Command="{StaticResource AutoCopy}" Executed="AutoCopy" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{StaticResource PinWindow}" />
+        <KeyBinding Key="A" Modifiers="Ctrl" Command="{StaticResource AutoCopy}" />
+    </Window.InputBindings>
+    <Grid>
+        <TabControl Margin="12,45,12,29" Name="tabControl1">
+            <TabItem Header="Overview" Name="tiOverview">
+                <Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Content="Sell" HorizontalAlignment="Left" Margin="12,12,0,0" Name="lblSellLabel" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" />
+                        <Label Grid.Column="0" Content="Buy" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="12,47,0,0" Name="lblBuyLabel" VerticalAlignment="Top" />
+                        <Label ToolTip="Click to copy" Content="0.00 ISK" HorizontalContentAlignment="Right" Margin="0,12,12,0" Name="lblSell" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Width="170" HorizontalAlignment="Right" MouseDown="LblSellMouseDown" />
+                        <Label ToolTip="Click to copy" Content="0.00 ISK" HorizontalContentAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0,47,12,0" Name="lblBuy" VerticalAlignment="Top" Width="174" HorizontalAlignment="Right" Height="30" MouseDown="LblBuyMouseDown" />
+
+                        <Label Grid.Column="1" Content="Revenue" Height="28" HorizontalAlignment="Left" Margin="6,14,0,0" Name="lbl5" VerticalAlignment="Top">
+                            <Label.ToolTip>
+                                <TextBlock FontStyle="Italic" TextAlignment="Center">Sell price - Broker's fee - Sales tax</TextBlock>
+                            </Label.ToolTip>
+                        </Label>
+                        <Label Grid.Column="1" Content="Cost of Sales" Height="28" HorizontalAlignment="Left" Margin="6,49,0,0" Name="lbl6" VerticalAlignment="Top">
+                            <Label.ToolTip>
+                                <TextBlock FontStyle="Italic" TextAlignment="Center">Buy price + Broker's fee</TextBlock>
+                            </Label.ToolTip>
+                        </Label>
+                        <Label Grid.Column="1" Content="Profit" Height="28" HorizontalAlignment="Left" Margin="6,83,0,0" Name="lbl7" VerticalAlignment="Top" FontWeight="Bold">
+                            <Label.ToolTip>
+                                <TextBlock FontStyle="Italic" TextAlignment="Center">Revenue - Cost of Sales</TextBlock>
+                            </Label.ToolTip>
+                        </Label>
+                        <Label Grid.Column="1" Content="0.00 ISK" HorizontalContentAlignment="Right" Height="28" HorizontalAlignment="Right" Margin="0,14,18,0" Name="lblRevenue" VerticalAlignment="Top" />
+                        <Label Grid.Column="1" Content="0.00 ISK" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,49,18,0" Name="lblCoS" VerticalAlignment="Top" />
+                        <Label Grid.Column="1" Content="0.00 ISK" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,83,18,0" Name="lblProfit" VerticalAlignment="Top" FontWeight="Bold" />
+
+                    </Grid>
+                    <Separator Height="5" Margin="12,117,12,0" Name="sprt1" VerticalAlignment="Top" Width="Auto"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="1" Content="10% at:" FontSize="14" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="7,134,0,0" Name="label3" VerticalAlignment="Top" Visibility="Hidden" />
+                        <Label Grid.Column="1" Content="0.00 ISK" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,136,18,0" Name="lbl10pat" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" />
+                        <Border Name="brdImportant" BorderThickness="1" CornerRadius="4" Height="96" Padding="5" BorderBrush="LightGray" Margin="12,128,6,0" VerticalAlignment="Top">
+                            <Grid>
+                                <Label Content="Profit margin" FontSize="14" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="6,10,0,0" Name="lblMarginLabel" VerticalAlignment="Top">
+                                    <Label.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontStyle="Italic" TextAlignment="Center">Profit</TextBlock>
+                                            <Separator />
+                                            <TextBlock FontStyle="Italic" TextAlignment="Center">Revenue</TextBlock>
+                                        </StackPanel>
+                                    </Label.ToolTip>
+                                </Label>
+                                <Label Content="0%" FontSize="14" FontWeight="Bold" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,10,13,0" Name="lblMargin" VerticalAlignment="Top" />
+                                <Label Content="Cost markup" FontSize="12" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="6,44,0,0" Name="lblMarkupLabel" VerticalAlignment="Top">
+                                    <Label.ToolTip>
+                                        <StackPanel>
+                                            <TextBlock FontStyle="Italic" TextAlignment="Center">Profit</TextBlock>
+                                            <Separator />
+                                            <TextBlock FontStyle="Italic" TextAlignment="Center">Cost of Sales</TextBlock>
+                                        </StackPanel>
+                                    </Label.ToolTip>
+                                </Label>
+                                <Label Content="0%" FontSize="12" FontWeight="Bold" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,44,13,0" Name="lblMarkup" VerticalAlignment="Top" />
+                            </Grid>
+                        </Border>
+                        <GroupBox Grid.Column="1" Header="Auto copy" Height="74" Margin="6,150,12,0" Name="gbAutocopy" VerticalAlignment="Top" IsEnabled="False">
+                            <Grid>
+                                <RadioButton Content="Sell price" Height="16" HorizontalAlignment="Left" Margin="6,6,0,0" Name="rbSell" VerticalAlignment="Top" IsChecked="True" GroupName="grpAutoCopy" Checked="RbChecked" />
+                                <RadioButton Content="Buy price" Height="16" HorizontalAlignment="Left" Margin="6,29,0,0" Name="rbBuy" VerticalAlignment="Top" GroupName="grpAutoCopy" Checked="RbChecked" />
+                            </Grid>
+                        </GroupBox>
+                        <CheckBox Content="Enable auto copy" ToolTip="Copies the new price to the clipboard automatically" Grid.Column="1" Height="16" HorizontalAlignment="Left" Margin="6,128,0,0" Name="cbAutoCopy" VerticalAlignment="Top" IsChecked="False" Checked="CbAutoCopyChecked" Unchecked="CbAutoCopyUnchecked" />
+                        <Image Height="16" HorizontalAlignment="Left" Margin="206,129,0,0" Name="imgCopyStatus" Stretch="Fill" VerticalAlignment="Top" Width="16" Grid.Column="1" />
+                    </Grid>
+
+                    <GroupBox Header="Sample data" Margin="12,230,12,6" Name="gbSamples">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <DataGrid Grid.Column="0" ColumnWidth="*" AutoGenerateColumns="True" Margin="6,6,6,6" Name="dgSamples" HeadersVisibility="Column" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" AlternatingRowBackground="#FFDBDBDB" Width="Auto" VerticalGridLinesBrush="#FFBABABA" HorizontalGridLinesBrush="#FFBABABA" />
+                            <DataGrid Grid.Column="1" ColumnWidth="*" AutoGenerateColumns="True" Margin="6,6,6,6" Name="dgSamplesFive" HeadersVisibility="Column" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" AlternatingRowBackground="#FFDBDBDB" Width="Auto" Grid.ColumnSpan="2" HorizontalGridLinesBrush="#FFBABABA" VerticalGridLinesBrush="#FFBABABA" />
+
+
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings" Name="tiSettings" LostFocus="TiSettingsLostFocus" GotFocus="TiSettingsGotFocus">
+                <Grid>
+                    <GroupBox Header="Margins" Margin="12,6,12,0" Name="gbMarginsSettings" Height="112" VerticalAlignment="Top">
+                        <Grid>
+                            <Label Content="Preferred Margin" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label5" VerticalAlignment="Top" Width="102" />
+                            <Slider ToolTip="The 'green' margin" Height="23" Margin="151,8,6,0" Name="slMargin" VerticalAlignment="Top" Width="auto" Maximum="0.9999" Value="0.1" />
+                            <Label Content="10,00%" Height="28" Margin="103,6,0,0" Name="lblMarginSetting" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
+
+                            <Label Content="Minimum Margin" Height="28" HorizontalAlignment="Left" Margin="6,40,0,0" Name="label132" VerticalAlignment="Top" />
+                            <Slider ToolTip="The 'yellow' margin" Height="23" Margin="151,42,6,0" Name="slMinimum" VerticalAlignment="Top" Width="Auto" Maximum=".1" Value="0.02" />
+                            <Label Content="2,00%" Height="28" Margin="103,40,0,0" Name="lblMinimumSetting" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Fees and Taxes" Margin="12,124,12,0" Name="gbFeesAndTaxes" Height="178" VerticalAlignment="Top">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="216" />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Broker Relations" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label6" VerticalAlignment="Top" />
+                            <ComboBox ToolTip="The 'Broker Relations' skill level" Height="23" HorizontalAlignment="Right" Margin="0,8,9,0" Name="cbBrokerRelations" VerticalAlignment="Top" Width="57">
+
+                            </ComboBox>
+                            <Label Content="" Height="28" HorizontalAlignment="Left" Margin="6,121,0,0" Name="lblBrokerRelations" VerticalAlignment="Top" FontStyle="Italic">
+                                <Label.ToolTip>
+                                    <StackPanel>
+                                        <TextBlock FontStyle="Italic" TextAlignment="Center">1% – 0.05% ⋅ Broker Relations</TextBlock>
+                                        <Separator />
+                                        <Grid>
+                                            <TextBlock FontStyle="Italic" TextAlignment="Left" Margin="0,0,2,0">2</TextBlock>
+                                            <TextBlock FontStyle="Italic" TextAlignment="Right" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="9" Height="13">0.14 ⋅ FactionStanding + 0.06 ⋅ CorporationStanding</TextBlock>
+                                        </Grid>
+                                    </StackPanel>
+                                </Label.ToolTip>
+                            </Label>
+                            <Label Content="Corp standing" Height="28" HorizontalAlignment="Left" Margin="6,40,0,0" Name="label7" VerticalAlignment="Top" />
+                            <Label Content="Faction standing" Height="28" HorizontalAlignment="Left" Margin="6,74,0,0" Name="label8" VerticalAlignment="Top" />
+                            <Label Content="" Grid.Column="1" Height="28" HorizontalAlignment="Right" Margin="0,121,6,0" Width="204" Name="lblSalesTax" VerticalAlignment="Top" FontStyle="Italic">
+                                <Label.ToolTip>
+                                    <TextBlock FontStyle="Italic" TextAlignment="Center">1.5% ⋅ (1 - (Accounting ⋅ 10%))</TextBlock>
+                                </Label.ToolTip>
+                            </Label>
+                            <Slider ToolTip="Standing towards the corp owning the station" Height="23" Margin="151,43,9,0" Name="slCorpStanding" Maximum="10" Minimum="-10" VerticalAlignment="Top" />
+                            <Label Content="0" HorizontalContentAlignment="Right" Height="28" Margin="97,40,0,0" Name="lblCorpStanding" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
+                            <Slider ToolTip="Standing towards the faction of the corp owning the station" Height="23" Maximum="10" Margin="151,76,9,0" Name="slFactionStanding" Minimum="-10" VerticalAlignment="Top" />
+                            <Label Content="0" HorizontalContentAlignment="Right" Height="28" Margin="103,74,0,0" Name="lblFactionStanding" VerticalAlignment="Top" HorizontalAlignment="Left" Width="42" />
+                            <Label Content="Accounting" Height="28" HorizontalAlignment="Right" Margin="0,6,140,0" Name="label123654" VerticalAlignment="Top" Grid.Column="1" />
+                            <ComboBox ToolTip="The 'Accounting' skill level" Height="23" HorizontalAlignment="Right" Margin="0,8,6,0" Name="cbAccounting" VerticalAlignment="Top" Width="57" Grid.Column="1" />
+                            <Border BorderBrush="#FFA0A0A0" BorderThickness="1" Grid.Column="1" Height="143" HorizontalAlignment="Left" Margin="0,6,0,0" Name="border1" VerticalAlignment="Top" Width="1" MaxWidth="1" MinWidth="1" />
+                        </Grid>
+                    </GroupBox>
+                    <Button Content="Default settings" Height="23" HorizontalAlignment="Right" Margin="0,0,3,6" Name="btnDefault" VerticalAlignment="Bottom" Width="102" Click="BtnDefaultClick" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StatusBar Height="23" Name="sbMain" VerticalAlignment="Bottom">
+            <StatusBarItem HorizontalAlignment="Left">
+                <ToggleButton Height="17" Width="17" Name="btnStayOnTop" Content="Pin" FontSize="8" ToolTip="Make window stay on top" Click="BtnStayOnTopClick" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Left">
+                <Elinor:DropDownButton Height="17" Width="17" x:Name="btnBeta" Content="β" FontSize="8" ToolTip="Beta options" >
+                    <Elinor:DropDownButton.DropDown>
+                        <ContextMenu>
+                            <MenuItem Name="miSubmitBug" Header="Submit a bug" Click="MiSubmitBugClick" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Elinor;component/Images/bug.png" Height="16" Width="16" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Name="miSubmitFeature" Header="Request a feature" Click="MiSubmitFeatureClick" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Elinor;component/Images/20_64_1.png" Height="16" Width="16" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Elinor:DropDownButton.DropDown>
+                </Elinor:DropDownButton>
+
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Left">
+                <Button Height="17" Width="17" Name="btnTutorial" Content="!" FontSize="8" ToolTip="Start tutorial" Click="BtnTutorialClick" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Left">
+                <Button Height="17" Width="17" Name="btnAbout" Content="?" FontSize="8" ToolTip="About Elinor" Click="BtnAboutClick" />
+            </StatusBarItem>
+            <StatusBarItem HorizontalContentAlignment="Right">
+                <TextBlock Text="" Name="tbStatus" MouseLeftButtonUp="TbStatusMouseLeftButtonUp" Cursor="Hand" ToolTip="Click to delete logs" />
+            </StatusBarItem>
+        </StatusBar>
+        <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,12,183,0" Name="cbProfiles" VerticalAlignment="Top" Width="168" SelectionChanged="CbProfilesSelectionChanged" />
+        <Button ToolTip="Create a new profile to store display and calculations settings" Content="New..." Height="23" HorizontalAlignment="Right" Margin="0,12,126,0" Name="btnNew" VerticalAlignment="Top" Width="51" Click="BtnNewClick" />
+        <Button ToolTip="Imports a characters skills and standings from API" Content="Import..." Height="23" HorizontalAlignment="Right" Margin="0,12,64,0" Name="btnImport" VerticalAlignment="Top" Width="56" Click="BtnImportClick" />
+        <Label Content="Profile" Height="28" HorizontalAlignment="Left" Margin="12,11,0,0" Name="label9" VerticalAlignment="Top" />
+        <Button ToolTip="Deletes the currently active profile" Content="Delete" Height="23" Margin="0,12,12,0" Name="btnDelete" VerticalAlignment="Top" Click="BtnDeleteClick" HorizontalAlignment="Right" Width="46" />
+    </Grid>
+</Window>
