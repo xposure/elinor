@@ -52,33 +52,9 @@ namespace Elinor
             }
         }
 
-        public void SaveSettings(Settings settings)
-        {
-            if (settings.ProfileName == "Default") return;
-            Directory.CreateDirectory("profiles");
-            Serializer.SerializeObject(string.Format("profiles\\{0}.dat", settings.ProfileName), settings);
-        }
-
-        private Settings ReadSettings(string profileName)
-        {
-            if (File.Exists(string.Format("profiles\\{0}.dat", profileName)))
-            {
-                try
-                {
-                    return Serializer.DeSerializeObject(string.Format("profiles\\{0}.dat", profileName));
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            }
-            return null;
-
-        }
-
         private void ProcessData(string s)
         {
-            List<List<string>> table = GetTableFromCSV(s);
+            List<List<string>> table = CSVReader.GetTableFromCSV(s);
 
             if (table == null) return;
 
@@ -164,10 +140,6 @@ namespace Elinor
             }
             catch (IOException)
             {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
                 return true;
             }
             finally
@@ -175,8 +147,6 @@ namespace Elinor
                 if (stream != null)
                     stream.Close();
             }
-
-            //file is not locked
             return false;
         }
 
@@ -187,33 +157,7 @@ namespace Elinor
 
             Dispatcher.Invoke(new Action(delegate { tbStatus.Text = String.Format("Market logs: {0:n0} KB", size / 1024); }));
         }
-
-        private List<List<string>> GetTableFromCSV(string path)
-        {
-            var result = new List<List<string>>();
-            StreamReader sr = null;
-            try
-            {
-                sr = new StreamReader(new FileStream(path, FileMode.Open));
-                sr.ReadLine();
-
-                while (!sr.EndOfStream)
-                {
-                    string readLine = sr.ReadLine();
-                    if (readLine != null) result.Add(new List<string>(readLine.Split(",".ToCharArray())));
-                }
-                return result;
-            }
-            catch (IOException)
-            {
-                return null;
-            }
-            finally
-            {
-                if (sr != null) sr.Close();
-            }
-        }
-
+        
         private void TbStatusMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (FileInfo fi in _logdir.GetFiles())
@@ -235,12 +179,12 @@ namespace Elinor
 
         private void WindowClosed(object sender, EventArgs e)
         {
-            SaveSettings(Settings);
+            Settings.SaveSettings(Settings);
         }
 
         private void TiSettingsLostFocus(object sender, RoutedEventArgs e)
         {
-            SaveSettings(Settings);
+            Settings.SaveSettings(Settings);
         }
 
         private void TiSettingsGotFocus(object sender, RoutedEventArgs e)
@@ -309,14 +253,14 @@ namespace Elinor
             {
                 File.Create("settings");
                 Tutorial.FlashControl(btnTutorial, Colors.Yellow, this);
-                Popup tutHint = new Popup
+                var tutHint = new Popup
                                     {
                                         VerticalOffset = -3,
                                         PlacementTarget = btnTutorial,
                                         Placement = PlacementMode.Top,
                                         IsOpen = true
                                     };
-                Border brd = new Border
+                var brd = new Border
                                       {
 
                                           BorderBrush =
@@ -343,7 +287,7 @@ namespace Elinor
         {
             foreach (FileInfo file in _profdir.GetFiles())
             {
-                Settings settings = ReadSettings(file.Name.Replace(file.Extension, ""));
+                Settings settings = Settings.ReadSettings(file.Name.Replace(file.Extension, ""));
                 if (settings != null)
                 {
                     cbProfiles.Items.Add(settings);
@@ -361,7 +305,7 @@ namespace Elinor
         {
             var tSettings = new Settings { ProfileName = Settings.ProfileName };
             Settings = tSettings;
-            SaveSettings(Settings);
+            Settings.SaveSettings(Settings);
             TiSettingsGotFocus(this, null);
         }
 
@@ -409,7 +353,7 @@ namespace Elinor
 
         private void CbProfilesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SaveSettings(Settings);
+            Settings.SaveSettings(Settings);
             Settings = (Settings)cbProfiles.SelectedItem;
             TiSettingsGotFocus(this, null);
             if (_lastEvent != null) FileSystemWatcherOnCreated(this, _lastEvent);
@@ -429,8 +373,8 @@ namespace Elinor
                 settings.ProfileName = pnw.ProfileName;
                 cbProfiles.Items.Add(settings);
                 cbProfiles.SelectedItem = settings;
-                tabControl1.SelectedIndex = 1;
-                SaveSettings(settings);
+                tcMain.SelectedIndex = 1;
+                Settings.SaveSettings(settings);
             }
         }
 
@@ -456,7 +400,7 @@ namespace Elinor
                         File.Delete(fName);
                         for (int i = 0; i < cbProfiles.Items.Count; i++)
                         {
-                            Settings tmp = (Settings)cbProfiles.Items[i];
+                            var tmp = (Settings)cbProfiles.Items[i];
                             if (tmp.ProfileName == settings.ProfileName)
                             {
                                 cbProfiles.SelectedIndex = 0;
@@ -466,14 +410,14 @@ namespace Elinor
                                 break;
                             }
                         }
-                        tabControl1.SelectedIndex = 1;
+                        tcMain.SelectedIndex = 1;
                     }
                 }
                 else
                 {
                     cbProfiles.Items.Add(settings);
                     cbProfiles.SelectedItem = settings;
-                    tabControl1.SelectedIndex = 1;
+                    tcMain.SelectedIndex = 1;
                 }
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.Serialization;
 
 namespace Elinor
@@ -27,8 +28,7 @@ namespace Elinor
             CorpStanding = .0;
         }
 
-
-
+        
         public override string ToString()
         {
             return ProfileName;
@@ -47,7 +47,6 @@ namespace Elinor
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            //info.AddValue("senderName", SenderName);
             info.AddValue("profilename", ProfileName);
             info.AddValue("marginthreshold", MarginThreshold);
             info.AddValue("minimumthreshold", MinimumThreshold);
@@ -55,6 +54,29 @@ namespace Elinor
             info.AddValue("brokerrelations", BrokerRelations);
             info.AddValue("factionstanding", FactionStanding);
             info.AddValue("corpstanding", CorpStanding);
+        }
+
+        public static Settings ReadSettings(string profileName)
+        {
+            if (File.Exists(string.Format("profiles\\{0}.dat", profileName)))
+            {
+                try
+                {
+                    return Serializer.DeSerializeObject(string.Format("profiles\\{0}.dat", profileName));
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        public static void SaveSettings(Settings settings)
+        {
+            if (settings.ProfileName == "Default") return;
+            Directory.CreateDirectory("profiles");
+            Serializer.SerializeObject(string.Format("profiles\\{0}.dat", settings.ProfileName), settings);
         }
     }
 }

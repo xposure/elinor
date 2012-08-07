@@ -14,7 +14,7 @@
         <KeyBinding Key="A" Modifiers="Ctrl" Command="{StaticResource AutoCopy}" />
     </Window.InputBindings>
     <Grid>
-        <TabControl Margin="12,45,12,29" Name="tabControl1">
+        <TabControl Margin="12,45,12,29" Name="tcMain">
             <TabItem Header="Overview" Name="tiOverview">
                 <Grid>
                     <Grid>
