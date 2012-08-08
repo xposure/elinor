@@ -1,7 +1,18 @@
-﻿namespace Elinor
+﻿using System.Globalization;
+using System.Windows;
+
+namespace Elinor
 {
     class ClipboardTools
     {
+        internal static void SetClipboardWrapper(double d)
+        {
+            if (d > .01)
+            {
+                Clipboard.SetText(d.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
         internal static double GetSellPrice(double sell, Settings settings)
         {
             if (settings == null) return .0;
