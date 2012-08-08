@@ -144,9 +144,9 @@ namespace Elinor
                                                  {
 
                                                      if (rbSell.IsChecked != null && (bool)rbSell.IsChecked)
-                                                         SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
+                                                         ClipboardTools.SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
                                                      else if (rbBuy.IsChecked != null && (bool)rbBuy.IsChecked)
-                                                         SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
+                                                         ClipboardTools.SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
 
 
                                                      var img = new BitmapImage();
@@ -505,12 +505,12 @@ namespace Elinor
 
         private void LblSellMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
+            ClipboardTools.SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
         }
 
         private void LblBuyMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
+            ClipboardTools.SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
         }
 
         private void MiSubmitBugClick(object sender, RoutedEventArgs e)
@@ -526,15 +526,7 @@ namespace Elinor
         private void RbChecked(object sender, RoutedEventArgs e)
         {
             double price = rbSell.IsChecked != null && (bool)rbSell.IsChecked ? ClipboardTools.GetSellPrice(_sell, Settings) : ClipboardTools.GetBuyPrice(_buy, Settings);
-            SetClipboardWrapper(price);
-        }
-
-        private void SetClipboardWrapper(double d)
-        {
-            if (d > .01)
-            {
-                Clipboard.SetText(d.ToString(CultureInfo.InvariantCulture));
-            }
+            ClipboardTools.SetClipboardWrapper(price);
         }
 
         private void BtnTutorialClick(object sender, RoutedEventArgs e)
