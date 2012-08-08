@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -115,9 +116,9 @@ namespace Elinor
                                                  {
 
                                                      if (rbSell.IsChecked != null && (bool)rbSell.IsChecked)
-                                                         SetClipboardWrapper(_sell - .01);
+                                                         SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
                                                      else if (rbBuy.IsChecked != null && (bool)rbBuy.IsChecked)
-                                                         SetClipboardWrapper(_buy + .01);
+                                                         SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
 
 
                                                      var img = new BitmapImage();
@@ -199,6 +200,12 @@ namespace Elinor
 
                                                  cbBrokerRelations.SelectedIndex = Settings.BrokerRelations;
                                                  cbAccounting.SelectedIndex = Settings.Accounting;
+
+                                                 cbAdvancedSettings.IsChecked = Settings.AdvancedStepSettings;
+                                                 tbSellFract.Text = (Settings.SellPercentage * 100).ToString(CultureInfo.InvariantCulture);
+                                                 tbBuyFract.Text = (Settings.BuyPercentage * 100).ToString(CultureInfo.InvariantCulture);
+                                                 tbSellThresh.Text = Settings.SellThreshold.ToString(CultureInfo.InvariantCulture);
+                                                 tbBuyThresh.Text = Settings.BuyThreshold.ToString(CultureInfo.InvariantCulture);
                                              }));
         }
 
@@ -467,12 +474,12 @@ namespace Elinor
 
         private void LblSellMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetClipboardWrapper(_sell - .01);
+            SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
         }
 
         private void LblBuyMouseDown(object sender, MouseButtonEventArgs e)
         {
-            SetClipboardWrapper(_buy + .01);
+            SetClipboardWrapper(ClipboardTools.GetBuyPrice(_buy, Settings));
         }
 
         private void MiSubmitBugClick(object sender, RoutedEventArgs e)
@@ -487,7 +494,7 @@ namespace Elinor
 
         private void RbChecked(object sender, RoutedEventArgs e)
         {
-            double price = rbSell.IsChecked != null && (bool)rbSell.IsChecked ? _sell - .01 : _buy + .01;
+            double price = rbSell.IsChecked != null && (bool)rbSell.IsChecked ? ClipboardTools.GetSellPrice(_sell, Settings) : ClipboardTools.GetBuyPrice(_buy, Settings);
             SetClipboardWrapper(price);
         }
 
@@ -504,5 +511,62 @@ namespace Elinor
             Tutorial.Main = this;
             Tutorial.NextTip();
         }
+
+        private void CbAdvancedSettingsChecked(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("This is a barely tested feature.\nPlease use with caution and report any bugs.",
+                            "Experimental feature", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                Settings.AdvancedStepSettings = true;
+                gbAdvancedSettings.IsEnabled = true;
+            }
+            else
+            {
+                cbAdvancedSettings.IsChecked = false;
+            }
+        }
+
+        private void CbAdvancedSettingsUnchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.AdvancedStepSettings = false;
+            gbAdvancedSettings.IsEnabled = false;
+        }
+        
+        private void TbSellFractTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double fract;
+            if (double.TryParse(tbSellFract.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out fract))
+            {
+                Settings.SellPercentage = fract/100;
+            }
+        }
+
+        private void TbSellThreshTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double thresh;
+            if (double.TryParse(tbSellThresh.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out thresh))
+            {
+                Settings.SellThreshold = thresh;
+            }
+        }
+
+        private void TbBuyFractTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double fract;
+            if (double.TryParse(tbBuyFract.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out fract))
+            {
+                Settings.BuyPercentage = fract / 100;
+            }
+        }
+
+        private void TbBuyThreshTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double thresh;
+            if (double.TryParse(tbBuyThresh.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out thresh))
+            {
+                Settings.BuyThreshold = thresh;
+            }
+        }
     }
+    
 }

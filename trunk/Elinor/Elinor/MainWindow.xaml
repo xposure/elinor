@@ -159,6 +159,23 @@
                         </Grid>
                     </GroupBox>
                     <Button Content="Default settings" Height="23" HorizontalAlignment="Right" Margin="0,0,3,6" Name="btnDefault" VerticalAlignment="Bottom" Width="102" Click="BtnDefaultClick" />
+                    <CheckBox Content="Enable advanced increment settings" Height="16" HorizontalAlignment="Left" Margin="18,308,0,0" Name="cbAdvancedSettings" VerticalAlignment="Top" Checked="CbAdvancedSettingsChecked" Unchecked="CbAdvancedSettingsUnchecked" />
+                    <GroupBox Header="Advanced increment settings" Height="90" Margin="12,330,12,0" Name="gbAdvancedSettings" VerticalAlignment="Top" IsEnabled="False">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Sell price fraction [%]" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lblSellFract" VerticalAlignment="Top" />
+                            <Label Content="Threshold [ISK]" Height="28" HorizontalAlignment="Left" Margin="6,33,0,0" Name="lblSellThresh" VerticalAlignment="Top" />
+                            <Label Grid.Column="1" Content="Buy price fraction [%]" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="lblBuyFract" VerticalAlignment="Top" />
+                            <Label Grid.Column="1" Content="Threshold [ISK]" Height="28" Margin="6,33,0,0" Name="lblBuyThresh" VerticalAlignment="Top" HorizontalAlignment="Left" Width="124" />
+                            <TextBox Height="23" Margin="134,8,8,0" Name="tbSellFract" VerticalAlignment="Top" TextChanged="TbSellFractTextChanged" />
+                            <TextBox Height="23" Margin="134,35,8,0" Name="tbSellThresh" VerticalAlignment="Top" TextChanged="TbSellThreshTextChanged" />
+                            <TextBox Height="23" Margin="134,8,8,0" Name="tbBuyFract" VerticalAlignment="Top" Grid.Column="1" TextChanged="TbBuyFractTextChanged" />
+                            <TextBox Height="23" Margin="134,35,8,0" Name="tbBuyThresh" VerticalAlignment="Top"  Grid.Column="1" TextChanged="TbBuyThreshTextChanged" />
+                        </Grid>
+                    </GroupBox>
                 </Grid>
             </TabItem>
         </TabControl>

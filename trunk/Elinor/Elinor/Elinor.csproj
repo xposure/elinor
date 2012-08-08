@@ -119,6 +119,7 @@
       <DependentUpon>ApiImportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="CharWrapper.cs" />
+    <Compile Include="ClipboardTools.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DropDownButton.cs" />
     <Compile Include="StandingWrapper.cs" />
