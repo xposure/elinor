@@ -22,5 +22,17 @@ namespace Elinor.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string logpath {
+            get {
+                return ((string)(this["logpath"]));
+            }
+            set {
+                this["logpath"] = value;
+            }
+        }
     }
 }

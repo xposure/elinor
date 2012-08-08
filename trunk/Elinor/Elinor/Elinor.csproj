@@ -92,6 +92,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -122,6 +123,9 @@
     <Compile Include="ClipboardTools.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DropDownButton.cs" />
+    <Compile Include="SelectLogPathWindow.xaml.cs">
+      <DependentUpon>SelectLogPathWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StandingWrapper.cs" />
     <Compile Include="ProfileNameWindow.xaml.cs">
       <DependentUpon>ProfileNameWindow.xaml</DependentUpon>
@@ -158,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SelectLogPathWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -177,6 +185,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="license.rtf" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

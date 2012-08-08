@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,24 +32,53 @@ namespace Elinor
             InitializeComponent();
             if (_logdir.Parent != null && !_logdir.Parent.Exists)
             {
-                MessageBox.Show("Your system has a weird EVE log path");
+                if (Properties.Settings.Default.logpath != "")
+                {
+                    string path = Properties.Settings.Default.logpath;
+                    try
+                    {
+                        _logdir = new DirectoryInfo(path);
+                        SetWatcherAndStuff();
+                    }
+                    catch(Exception)
+                    {
+                        MessageBox.Show("Settings file corrupted, sorry.");
+                    }
+                }
+                else
+                {
+                    var dlg = new SelectLogPathWindow();
+                    var showDialog = dlg.ShowDialog();
+                    if(showDialog != null && (bool) showDialog)
+                    {
+                        _logdir = dlg.Logpath;
+                        Properties.Settings.Default.logpath = _logdir.FullName;
+                        Properties.Settings.Default.Save();
+                        SetWatcherAndStuff();
+                    }
 
+                }
             }
             else
             {
-                if (!_logdir.Exists)
-                    _logdir.Create();
-                if (!_profdir.Exists)
-                    _profdir.Create();
-
-                _fileSystemWatcher.Path = _logdir.FullName;
-                _fileSystemWatcher.Created += FileSystemWatcherOnCreated;
-                _fileSystemWatcher.EnableRaisingEvents = true;
-
-                dgSamples.ColumnWidth = DataGridLength.SizeToCells;
-                dgSamplesFive.ColumnWidth = DataGridLength.SizeToCells;
-                UpdateStatus();
+                SetWatcherAndStuff();
             }
+        }
+
+        private void SetWatcherAndStuff()
+        {
+            if (!_logdir.Exists)
+                _logdir.Create();
+            if (!_profdir.Exists)
+                _profdir.Create();
+
+            _fileSystemWatcher.Path = _logdir.FullName;
+            _fileSystemWatcher.Created += FileSystemWatcherOnCreated;
+            _fileSystemWatcher.EnableRaisingEvents = true;
+
+            dgSamples.ColumnWidth = DataGridLength.SizeToCells;
+            dgSamplesFive.ColumnWidth = DataGridLength.SizeToCells;
+            UpdateStatus();
         }
 
         private void ProcessData(string s)
