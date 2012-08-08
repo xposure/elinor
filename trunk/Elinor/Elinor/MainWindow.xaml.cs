@@ -284,9 +284,10 @@ namespace Elinor
 
         private void ShowTutorialHint()
         {
-            if (!File.Exists("settings"))
+            if (Properties.Settings.Default.showtutorial)
             {
-                File.Create("settings");
+                Properties.Settings.Default.showtutorial = false;
+                Properties.Settings.Default.Save();
                 Tutorial.FlashControl(btnTutorial, Colors.Yellow, this);
                 var tutHint = new Popup
                                     {
