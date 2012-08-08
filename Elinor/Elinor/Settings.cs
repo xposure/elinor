@@ -14,6 +14,11 @@ namespace Elinor
         internal int BrokerRelations { get; set; }
         internal double FactionStanding { get; set; }
         internal double CorpStanding { get; set; }
+        internal bool AdvancedStepSettings { get; set; }
+        internal double BuyPercentage { get; set; }
+        internal double BuyThreshold { get; set; }
+        internal double SellPercentage { get; set; }
+        internal double SellThreshold { get; set; }
 
         public Settings()
         {
@@ -24,6 +29,11 @@ namespace Elinor
             BrokerRelations = 5;
             FactionStanding = .0;
             CorpStanding = .0;
+            AdvancedStepSettings = false;
+            BuyPercentage = .0;
+            BuyThreshold = .0;
+            SellPercentage = .0;
+            SellThreshold = .0;
         }
 
         
@@ -41,6 +51,11 @@ namespace Elinor
             BrokerRelations = (int)info.GetValue("brokerrelations", typeof(int));
             FactionStanding = (double)info.GetValue("factionstanding", typeof(double));
             CorpStanding = (double)info.GetValue("corpstanding", typeof(double));
+            AdvancedStepSettings = info.GetBoolean("advancedstepsettings");
+            BuyPercentage = info.GetDouble("buypercentage");
+            BuyThreshold = info.GetDouble("buythreshold");
+            SellPercentage = info.GetDouble("sellpercentage");
+            SellThreshold = info.GetDouble("sellthreshold");
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -52,6 +67,11 @@ namespace Elinor
             info.AddValue("brokerrelations", BrokerRelations);
             info.AddValue("factionstanding", FactionStanding);
             info.AddValue("corpstanding", CorpStanding);
+            info.AddValue("advancedstepsettings", AdvancedStepSettings);
+            info.AddValue("buypercentage", BuyPercentage);
+            info.AddValue("buythreshold", BuyThreshold);
+            info.AddValue("sellpercentage", SellPercentage);
+            info.AddValue("sellthreshold", SellThreshold);
         }
 
         public static Settings ReadSettings(string profileName)
