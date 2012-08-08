@@ -23,21 +23,21 @@ namespace Elinor
                              AllowsTransparency = true,
                          };
 
-            Button btnNext = new Button
+            var btnNext = new Button
                 {
                     Content = "Next",
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Width = 65,
                 };
             btnNext.Click += (o, a) => NextTip();
-            Button btnClose = new Button
+            var btnClose = new Button
                 {
                     Content = "Close",
                     HorizontalAlignment = HorizontalAlignment.Left,
                     Width = 65,
                 };
             btnClose.Click += (o, a) => Cancel();
-            StackPanel panel = new StackPanel
+            var panel = new StackPanel
                                    {
                                        Margin = new Thickness(6, 6, 6, 6)
                                    };
@@ -278,7 +278,7 @@ namespace Elinor
 
 
             }
-            Grid grid = new Grid();
+            var grid = new Grid();
             if (_step >= 14)
             {
                 btnClose.HorizontalAlignment = HorizontalAlignment.Right;
@@ -291,19 +291,16 @@ namespace Elinor
             }
             grid.Margin = new Thickness(0, 20, 0, 0);
             panel.Children.Add(grid);
-           
-            Border brd = new Border
-            {
-                CornerRadius = new CornerRadius(5),
-                BorderBrush = new LinearGradientBrush(Colors.LightSlateGray, Colors.Black, .45),
-                BorderThickness = new Thickness(1),
-                Background = new LinearGradientBrush(Colors.LightYellow, Colors.PaleGoldenrod, .25),
-                
-               
-            };
-            brd.Child = panel;
-            _popup.Child = brd;
 
+            var brd = new Border
+                          {
+                              CornerRadius = new CornerRadius(5),
+                              BorderBrush = new LinearGradientBrush(Colors.LightSlateGray, Colors.Black, .45),
+                              BorderThickness = new Thickness(1),
+                              Background = new LinearGradientBrush(Colors.LightYellow, Colors.PaleGoldenrod, .25),
+                              Child = panel,
+                          };
+            _popup.Child = brd;
             _step++;
         }
 
@@ -317,7 +314,7 @@ namespace Elinor
 
         public static void FlashControl(Control control, Color flashColor, MainWindow main)
         {
-            Thread thread = new Thread(new ThreadStart(delegate
+            var thread = new Thread(new ThreadStart(delegate
                     {
                         Brush old = null;
                         Color oldColor;
@@ -380,7 +377,7 @@ namespace Elinor
 
         public static void FlashForeground(Control control)
         {
-            Thread thread = new Thread(new ThreadStart(delegate
+            var thread = new Thread(new ThreadStart(delegate
             {
                 Main.Dispatcher.Invoke(new Action(delegate
                 { }));
@@ -431,7 +428,7 @@ namespace Elinor
 
         public static void FlashForeground(Decorator control)
         {
-            Thread thread = new Thread(new ThreadStart(delegate
+            var thread = new Thread(new ThreadStart(delegate
                 {
                     Main.Dispatcher.Invoke(new Action(delegate
                     { }));
@@ -482,7 +479,7 @@ namespace Elinor
 
         public static void FlashForeground(UIElement control)
         {
-            Thread thread = new Thread(new ThreadStart(delegate
+            var thread = new Thread(new ThreadStart(delegate
             {
                 Main.Dispatcher.Invoke(new Action(delegate
                 { }));
