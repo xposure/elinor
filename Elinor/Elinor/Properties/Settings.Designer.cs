@@ -34,5 +34,17 @@ namespace Elinor.Properties {
                 this["logpath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showtutorial {
+            get {
+                return ((bool)(this["showtutorial"]));
+            }
+            set {
+                this["showtutorial"] = value;
+            }
+        }
     }
 }
