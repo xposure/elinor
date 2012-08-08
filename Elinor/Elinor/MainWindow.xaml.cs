@@ -433,19 +433,21 @@ namespace Elinor
                                     "Character already exists", MessageBoxButton.YesNo, MessageBoxImage.Information);
                     if (result == MessageBoxResult.Yes)
                     {
+                        int index = 1;
                         File.Delete(fName);
                         for (int i = 0; i < cbProfiles.Items.Count; i++)
                         {
                             var tmp = (Settings)cbProfiles.Items[i];
                             if (tmp.ProfileName == settings.ProfileName)
                             {
+                                index = i;
                                 cbProfiles.SelectedIndex = 0;
                                 cbProfiles.Items.RemoveAt(i);
-                                cbProfiles.Items.Insert(i, settings);
-                                cbProfiles.SelectedItem = settings;
                                 break;
                             }
                         }
+                        cbProfiles.Items.Insert(index, settings);
+                        cbProfiles.SelectedItem = settings;
                         tcMain.SelectedIndex = 1;
                     }
                 }
