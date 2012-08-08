@@ -41,9 +41,7 @@ namespace Elinor
                                    {
                                        Margin = new Thickness(6, 6, 6, 6)
                                    };
-
-            //panel.BorderBrush = new SolidColorBrush(Colors.Goldenrod);
-
+            
             switch (_step)
             {
                 case 0:

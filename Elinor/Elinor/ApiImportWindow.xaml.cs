@@ -78,6 +78,7 @@ namespace Elinor
 
         private void BtnOkClick(object sender, RoutedEventArgs e)
         {
+            btnOk.IsEnabled = false;
             pbLoading.Visibility = Visibility.Visible;
             CharWrapper chara = (CharWrapper)cbChars.SelectedItem;
 
