@@ -33,56 +33,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_592E34C99BA5B24046C72EB1F962F214"
+        "MsmKey" = "8:_4F32A1606BF1D28D62A0ABA486A618F3"
         "OwnerKey" = "8:_4C02DB95679C4996955920B638676262"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_592E34C99BA5B24046C72EB1F962F214"
-        "OwnerKey" = "8:_78DC62450298B16A7B7DB8685D84A36C"
+        "MsmKey" = "8:_4F32A1606BF1D28D62A0ABA486A618F3"
+        "OwnerKey" = "8:_D0C27859FC70E94FD6CB886571DC2146"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_78DC62450298B16A7B7DB8685D84A36C"
+        "MsmKey" = "8:_D0C27859FC70E94FD6CB886571DC2146"
         "OwnerKey" = "8:_4C02DB95679C4996955920B638676262"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DF436C93BBE381FE0C2CB1B21D50EBA"
-        "OwnerKey" = "8:_592E34C99BA5B24046C72EB1F962F214"
+        "MsmKey" = "8:_F653B7DF48D821B3128A2E93727CF3AE"
+        "OwnerKey" = "8:_4F32A1606BF1D28D62A0ABA486A618F3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9DF436C93BBE381FE0C2CB1B21D50EBA"
-        "OwnerKey" = "8:_4C02DB95679C4996955920B638676262"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_F653B7DF48D821B3128A2E93727CF3AE"
         "OwnerKey" = "8:_4C02DB95679C4996955920B638676262"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_78DC62450298B16A7B7DB8685D84A36C"
+        "OwnerKey" = "8:_4C02DB95679C4996955920B638676262"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_592E34C99BA5B24046C72EB1F962F214"
+        "OwnerKey" = "8:_D0C27859FC70E94FD6CB886571DC2146"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9DF436C93BBE381FE0C2CB1B21D50EBA"
+        "OwnerKey" = "8:_4F32A1606BF1D28D62A0ABA486A618F3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F653B7DF48D821B3128A2E93727CF3AE"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -230,14 +230,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_592E34C99BA5B24046C72EB1F962F214"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4F32A1606BF1D28D62A0ABA486A618F3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:EveAI.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_592E34C99BA5B24046C72EB1F962F214"
+                    "_4F32A1606BF1D28D62A0ABA486A618F3"
                     {
                     "Name" = "8:EveAI.Core.dll"
                     "Attributes" = "3:512"
@@ -261,14 +261,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78DC62450298B16A7B7DB8685D84A36C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D0C27859FC70E94FD6CB886571DC2146"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:EveAI.Live, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_78DC62450298B16A7B7DB8685D84A36C"
+                    "_D0C27859FC70E94FD6CB886571DC2146"
                     {
                     "Name" = "8:EveAI.Live.dll"
                     "Attributes" = "3:512"
@@ -292,14 +292,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9DF436C93BBE381FE0C2CB1B21D50EBA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F653B7DF48D821B3128A2E93727CF3AE"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9DF436C93BBE381FE0C2CB1B21D50EBA"
+                    "_F653B7DF48D821B3128A2E93727CF3AE"
                     {
                     "Name" = "8:Ionic.Zip.Reduced.dll"
                     "Attributes" = "3:512"
@@ -401,15 +401,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Elinor"
-        "ProductCode" = "8:{933A3E33-C295-4629-AB25-9C832139DA8D}"
-        "PackageCode" = "8:{4E95225B-FAC6-4347-9FC5-5D28604CBDAE}"
+        "ProductCode" = "8:{EA96051C-A398-4651-A4A2-97E88766618D}"
+        "PackageCode" = "8:{ACEC4C13-337C-4AE2-8458-69FE67200CF1}"
         "UpgradeCode" = "8:{F54F50ED-FDA6-4419-B476-E665ADA1FCBC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.5"
+        "ProductVersion" = "8:1.0.6"
         "Manufacturer" = "8:Cynevi"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
