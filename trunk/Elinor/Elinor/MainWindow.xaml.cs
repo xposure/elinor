@@ -40,7 +40,7 @@ namespace Elinor
                         _logdir = new DirectoryInfo(path);
                         SetWatcherAndStuff();
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         MessageBox.Show("Settings file corrupted, sorry.");
                     }
@@ -49,7 +49,7 @@ namespace Elinor
                 {
                     var dlg = new SelectLogPathWindow();
                     var showDialog = dlg.ShowDialog();
-                    if(showDialog != null && (bool) showDialog)
+                    if (showDialog != null && (bool)showDialog)
                     {
                         _logdir = dlg.Logpath;
                         Properties.Settings.Default.logpath = _logdir.FullName;
@@ -179,14 +179,13 @@ namespace Elinor
             return false;
         }
 
-
         private void UpdateStatus()
         {
             long size = _logdir.GetFiles().Sum(fi => fi.Length);
 
             Dispatcher.Invoke(new Action(delegate { tbStatus.Text = String.Format("Market logs: {0:n0} KB", size / 1024); }));
         }
-        
+
         private void TbStatusMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (FileInfo fi in _logdir.GetFiles())
@@ -222,9 +221,11 @@ namespace Elinor
                                              {
                                                  slMargin.Value = Settings.MarginThreshold;
                                                  slMinimum.Value = Settings.MinimumThreshold;
-
-                                                 slCorpStanding.Value = Settings.CorpStanding;
-                                                 slFactionStanding.Value = Settings.FactionStanding;
+                                                 
+                                                 tbCorpStanding.Text =
+                                                     Settings.CorpStanding.ToString(CultureInfo.InvariantCulture);
+                                                 tbFactionStanding.Text =
+                                                     Settings.FactionStanding.ToString(CultureInfo.InvariantCulture);
 
                                                  cbBrokerRelations.SelectedIndex = Settings.BrokerRelations;
                                                  cbAccounting.SelectedIndex = Settings.Accounting;
@@ -243,7 +244,7 @@ namespace Elinor
             Dispatcher.Invoke(new Action(delegate
                                                  {
                                                      slMinimum.Maximum = slMargin.Value;
-                                                     lblMarginSetting.Content = String.Format("{0:n}%", slMargin.Value * 100);
+                                                     tbPreferred.Text = (slMargin.Value * 100).ToString(CultureInfo.InvariantCulture);
                                                  }));
         }
 
@@ -252,7 +253,7 @@ namespace Elinor
             Settings.MinimumThreshold = slMinimum.Value;
             Dispatcher.Invoke(new Action(delegate
             {
-                lblMinimumSetting.Content = String.Format("{0:n}%", slMinimum.Value * 100);
+                tbMinimum.Text = (slMinimum.Value * 100).ToString(CultureInfo.InvariantCulture);
             }));
         }
 
@@ -261,8 +262,10 @@ namespace Elinor
             slMargin.ValueChanged += SlMarginValueChanged;
             slMinimum.ValueChanged += SlMinimumValueChanged;
 
-            slCorpStanding.ValueChanged += SlCorpStandingValueChanged;
-            slFactionStanding.ValueChanged += SlFactionStandingValueChanged;
+            tbCorpStanding.TextChanged += TbCorpStandingTextChanged;
+            tbFactionStanding.TextChanged += TbFactionStandingTextChanged;
+            tbCorpStanding.LostFocus += TbStandingOnLostFocus;
+            tbFactionStanding.LostFocus += TbStandingOnLostFocus;
 
             cbBrokerRelations.SelectionChanged += CbBrokerRelationsSelectionChanged;
             cbAccounting.SelectionChanged += CbAccountingSelectionChanged;
@@ -277,9 +280,28 @@ namespace Elinor
             cbProfiles.Items.Add(Settings);
             cbProfiles.SelectedIndex = 0;
 
+            PopupPlacements();
+
             ShowTutorialHint();
 
             UpdateProfiles();
+        }
+
+        private void TbStandingOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
+        {
+            double standing;
+            var tbSender = (TextBox) sender;
+            if (double.TryParse(tbSender.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out standing))
+            {
+                if (standing > 10) tbSender.Text = "10";
+                if (standing < -10) tbSender.Text = "-10";
+            }
+        }
+
+        private void PopupPlacements()
+        {
+            ppFactionStanding.PlacementTarget = tbFactionStanding;
+            ppCorpStanding.PlacementTarget = tbCorpStanding;
         }
 
         private void ShowTutorialHint()
@@ -354,28 +376,6 @@ namespace Elinor
             }));
 
 
-        }
-
-        private void SlCorpStandingValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Settings.CorpStanding = slCorpStanding.Value;
-            Dispatcher.Invoke(new Action(delegate
-                                             {
-                                                 lblCorpStanding.Content = String.Format("{0:n}", slCorpStanding.Value);
-                                             }));
-
-            UpdateBrokerFee();
-        }
-
-        private void SlFactionStandingValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Settings.FactionStanding = slFactionStanding.Value;
-            Dispatcher.Invoke(new Action(delegate
-            {
-                lblFactionStanding.Content = String.Format("{0:n}", slFactionStanding.Value);
-            }));
-
-            UpdateBrokerFee();
         }
 
         private void CbAccountingSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -554,13 +554,13 @@ namespace Elinor
             Settings.AdvancedStepSettings = false;
             gbAdvancedSettings.IsEnabled = false;
         }
-        
+
         private void TbSellFractTextChanged(object sender, TextChangedEventArgs e)
         {
             double fract;
             if (double.TryParse(tbSellFract.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out fract))
             {
-                Settings.SellPercentage = fract/100;
+                Settings.SellPercentage = fract / 100;
             }
         }
 
@@ -590,6 +590,87 @@ namespace Elinor
                 Settings.BuyThreshold = thresh;
             }
         }
+
+        private void TbCorpStandingTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double standing;
+
+            if (double.TryParse(tbCorpStanding.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out standing))
+            {
+                if (standing <= 10 && standing >= -10)
+                {
+                    ppCorpStanding.IsOpen = false;
+                    Settings.CorpStanding = standing;
+                    UpdateBrokerFee();
+                }
+                else
+                {
+                    ppCorpStanding.IsOpen = true;
+                }
+            }
+        }
+
+        private void TbFactionStandingTextChanged(object sender, TextChangedEventArgs e)
+        {
+            double standing;
+
+            if (double.TryParse(tbFactionStanding.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out standing))
+            {
+                if (standing <= 10 && standing >= -10)
+                {
+                    ppFactionStanding.IsOpen = false;
+                    Settings.FactionStanding = standing;
+                    UpdateBrokerFee();
+                }
+                else
+                {
+                    ppFactionStanding.IsOpen = true;
+                }
+            }
+        }
+
+        private void TbPreferredKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                double d;
+                if (double.TryParse(tbPreferred.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out d))
+                {
+                    d /= 100;
+                    if (d <= slMargin.Maximum)
+                    {
+                        slMargin.Value = d;
+                    }
+                    else
+                    {
+                        tbPreferred.Text = (slMargin.Maximum*100).ToString(CultureInfo.InvariantCulture);
+                        slMargin.Value = slMargin.Maximum;
+                    }
+                }
+            }
+        }
+
+        private void TbMinimumKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                double d;
+                if (double.TryParse(tbMinimum.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out d))
+                {
+                    d /= 100;
+                    if (d <= slMinimum.Maximum)
+                    {
+                        slMinimum.Value = d;
+                    }
+                    else
+                    {
+                        tbMinimum.Text = (slMinimum.Maximum * 100).ToString(CultureInfo.InvariantCulture);
+                        slMinimum.Value = slMinimum.Maximum;
+                    }
+                }
+            }
+        }
+       
     }
-    
+
 }

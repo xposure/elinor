@@ -111,12 +111,13 @@
                     <GroupBox Header="Margins" Margin="12,6,12,0" Name="gbMarginsSettings" Height="112" VerticalAlignment="Top">
                         <Grid>
                             <Label Content="Preferred Margin" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label5" VerticalAlignment="Top" Width="102" />
-                            <Slider ToolTip="The 'green' margin" Height="23" Margin="151,8,6,0" Name="slMargin" VerticalAlignment="Top" Width="auto" Maximum="0.9999" Value="0.1" />
-                            <Label Content="10,00%" Height="28" Margin="103,6,0,0" Name="lblMarginSetting" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
-
+                            <Slider ToolTip="The 'green' margin" Height="23" Margin="217,8,6,0" Name="slMargin" VerticalAlignment="Top" Width="Auto" Maximum="0.9999" Value="0.1" />
                             <Label Content="Minimum Margin" Height="28" HorizontalAlignment="Left" Margin="6,40,0,0" Name="label132" VerticalAlignment="Top" />
-                            <Slider ToolTip="The 'yellow' margin" Height="23" Margin="151,42,6,0" Name="slMinimum" VerticalAlignment="Top" Width="Auto" Maximum=".1" Value="0.02" />
-                            <Label Content="2,00%" Height="28" Margin="103,40,0,0" Name="lblMinimumSetting" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
+                            <Slider ToolTip="The 'yellow' margin" Height="23" Margin="217,42,6,0" Name="slMinimum" VerticalAlignment="Top" Width="Auto" Maximum=".1" Value="0.02" />
+                            <TextBox TextAlignment="Right" Height="23" HorizontalAlignment="Left" Margin="114,8,0,0" Name="tbPreferred" VerticalAlignment="Top" Width="44" Text="10" KeyDown="TbPreferredKeyDown" />
+                            <TextBox TextAlignment="Right" Height="23" HorizontalAlignment="Left" Margin="114,42,0,0" Name="tbMinimum" VerticalAlignment="Top" Width="44" Text="2" KeyDown="TbMinimumKeyDown" />
+                            <Label Content="%" Height="28" HorizontalAlignment="Left" Margin="164,6,0,0" Name="label1" VerticalAlignment="Top" />
+                            <Label Content="%" Height="28" HorizontalAlignment="Left" Margin="164,40,0,0" Name="label2" VerticalAlignment="Top" />
                         </Grid>
                     </GroupBox>
 
@@ -149,13 +150,33 @@
                                     <TextBlock FontStyle="Italic" TextAlignment="Center">1.5% ⋅ (1 - (Accounting ⋅ 10%))</TextBlock>
                                 </Label.ToolTip>
                             </Label>
-                            <Slider ToolTip="Standing towards the corp owning the station" Height="23" Margin="151,43,9,0" Name="slCorpStanding" Maximum="10" Minimum="-10" VerticalAlignment="Top" />
-                            <Label Content="0" HorizontalContentAlignment="Right" Height="28" Margin="97,40,0,0" Name="lblCorpStanding" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48" />
-                            <Slider ToolTip="Standing towards the faction of the corp owning the station" Height="23" Maximum="10" Margin="151,76,9,0" Name="slFactionStanding" Minimum="-10" VerticalAlignment="Top" />
-                            <Label Content="0" HorizontalContentAlignment="Right" Height="28" Margin="103,74,0,0" Name="lblFactionStanding" VerticalAlignment="Top" HorizontalAlignment="Left" Width="42" />
                             <Label Content="Accounting" Height="28" HorizontalAlignment="Right" Margin="0,6,140,0" Name="label123654" VerticalAlignment="Top" Grid.Column="1" />
                             <ComboBox ToolTip="The 'Accounting' skill level" Height="23" HorizontalAlignment="Right" Margin="0,8,6,0" Name="cbAccounting" VerticalAlignment="Top" Width="57" Grid.Column="1" />
                             <Border BorderBrush="#FFA0A0A0" BorderThickness="1" Grid.Column="1" Height="143" HorizontalAlignment="Left" Margin="0,6,0,0" Name="border1" VerticalAlignment="Top" Width="1" MaxWidth="1" MinWidth="1" />
+                            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,42,9,0" Name="tbCorpStanding" VerticalAlignment="Top" Width="57" />
+                            <Popup AllowsTransparency="True" Name="ppCorpStanding" Placement="Bottom" IsOpen="False">
+                                <Border BorderBrush="DimGray" BorderThickness="1" CornerRadius="5">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="WhiteSmoke" Offset="0" />
+                                            <GradientStop Color="Gainsboro" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="3">Standing must be between -10 and 10</TextBlock>
+                                </Border>
+                            </Popup>
+                            <TextBox Height="23" HorizontalAlignment="Right" Margin="0,76,9,0" Name="tbFactionStanding" VerticalAlignment="Top" Width="57" />
+                            <Popup AllowsTransparency="True" Name="ppFactionStanding" Placement="Bottom" IsOpen="False">                                
+                                <Border BorderBrush="DimGray" BorderThickness="1" CornerRadius="5">                                 
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="WhiteSmoke" Offset="0" />
+                                            <GradientStop Color="Gainsboro" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="3">Standing must be between -10 and 10</TextBlock>
+                                </Border>
+                            </Popup>
                         </Grid>
                     </GroupBox>
                     <Button Content="Default settings" Height="23" HorizontalAlignment="Right" Margin="0,0,3,6" Name="btnDefault" VerticalAlignment="Bottom" Width="102" Click="BtnDefaultClick" />
