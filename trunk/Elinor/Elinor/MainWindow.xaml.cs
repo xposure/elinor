@@ -389,10 +389,12 @@ namespace Elinor
 
         private void CbProfilesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnDelete.IsEnabled = cbProfiles.SelectedItem.ToString() != "Default";
             Settings.SaveSettings(Settings);
             Settings = (Settings)cbProfiles.SelectedItem;
             TiSettingsGotFocus(this, null);
             if (_lastEvent != null) FileSystemWatcherOnCreated(this, _lastEvent);
+
         }
 
         private void BtnNewClick(object sender, RoutedEventArgs e)
@@ -462,6 +464,7 @@ namespace Elinor
 
         private void BtnDeleteClick(object sender, RoutedEventArgs e)
         {
+            if (cbProfiles.SelectedItem.ToString() == "Default") return;
             Settings tSet = Settings;
             int i = cbProfiles.SelectedIndex;
             cbProfiles.SelectedIndex = i - 1;
