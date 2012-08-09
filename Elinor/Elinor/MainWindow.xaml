@@ -18,7 +18,7 @@
             <TabItem Header="Overview" Name="tiOverview">
                 <Grid>
                     <Grid Height="40" VerticalAlignment="Top">
-                        <Label FontWeight="Bold" FontSize="20" Name="lblItemName" Margin="6,3,3,3" Content="No item selected" />
+                        <Label FontWeight="Bold" FontSize="18" Name="lblItemName" Margin="6,3,3,3" Content="No item selected" />
                     </Grid>
                     <Grid Height="Auto" Margin="0,30,0,0" VerticalAlignment="Stretch">
                         <Grid>
