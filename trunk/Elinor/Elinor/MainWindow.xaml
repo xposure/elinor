@@ -24,9 +24,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Content="Sell" HorizontalAlignment="Left" Margin="12,12,0,0" Name="lblSellLabel" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" />
-                        <Label Grid.Column="0" Content="Buy" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="12,47,0,0" Name="lblBuyLabel" VerticalAlignment="Top" />
+                        <Label Grid.Column="0" Content="Buy" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="12,35,0,0" Name="lblBuyLabel" VerticalAlignment="Top" />
                         <Label ToolTip="Click to copy" Content="0.00 ISK" HorizontalContentAlignment="Right" Margin="0,12,12,0" Name="lblSell" VerticalAlignment="Top" FontWeight="Bold" FontSize="14" Width="170" HorizontalAlignment="Right" MouseDown="LblSellMouseDown" />
-                        <Label ToolTip="Click to copy" Content="0.00 ISK" HorizontalContentAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0,47,12,0" Name="lblBuy" VerticalAlignment="Top" Width="174" HorizontalAlignment="Right" Height="30" MouseDown="LblBuyMouseDown" />
+                        <Label ToolTip="Click to copy" Content="0.00 ISK" HorizontalContentAlignment="Right" FontSize="14" FontWeight="Bold" Margin="0,35,12,0" Name="lblBuy" VerticalAlignment="Top" Width="174" HorizontalAlignment="Right" Height="30" MouseDown="LblBuyMouseDown" />
 
                         <Label Grid.Column="1" Content="Revenue" Height="28" HorizontalAlignment="Left" Margin="6,14,0,0" Name="lbl5" VerticalAlignment="Top">
                             <Label.ToolTip>
@@ -54,9 +54,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="1" Content="10% at:" FontSize="14" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="7,134,0,0" Name="label3" VerticalAlignment="Top" Visibility="Hidden" />
-                        <Label Grid.Column="1" Content="0.00 ISK" Height="28" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="0,136,18,0" Name="lbl10pat" VerticalAlignment="Top" FontWeight="Bold" Visibility="Hidden" />
+                        </Grid.ColumnDefinitions>   
                         <Border Name="brdImportant" BorderThickness="1" CornerRadius="4" Height="96" Padding="5" BorderBrush="LightGray" Margin="12,128,6,0" VerticalAlignment="Top">
                             <Grid>
                                 <Label Content="Profit margin" FontSize="14" FontWeight="Bold" Height="28" HorizontalAlignment="Left" Margin="6,10,0,0" Name="lblMarginLabel" VerticalAlignment="Top">
@@ -89,6 +87,10 @@
                         </GroupBox>
                         <CheckBox Content="Enable auto copy" ToolTip="Copies the new price to the clipboard automatically" Grid.Column="1" Height="16" HorizontalAlignment="Left" Margin="6,128,0,0" Name="cbAutoCopy" VerticalAlignment="Top" IsChecked="False" Checked="CbAutoCopyChecked" Unchecked="CbAutoCopyUnchecked" />
                         <Image Height="16" HorizontalAlignment="Left" Margin="206,129,0,0" Name="imgCopyStatus" Stretch="Fill" VerticalAlignment="Top" Width="16" Grid.Column="1" />
+                        <Label Content="0/0" Height="28" HorizontalAlignment="Right" Margin="0,63,13,0" Name="lblSellvols" VerticalAlignment="Top" />
+                        <Label Content="0/0" Height="28" HorizontalAlignment="Right" Margin="0,83,13,0" Name="lblBuyvols" VerticalAlignment="Top" />
+                        <Label Content="Sell volume/movement" Height="28" HorizontalAlignment="Left" Margin="12,63,0,0" Name="label3" VerticalAlignment="Top" />
+                        <Label Content="Buy volume/movement" Height="28" HorizontalAlignment="Left" Margin="12,83,0,0" Name="label4" VerticalAlignment="Top" />
                     </Grid>
 
                     <GroupBox Header="Sample data" Margin="12,230,12,6" Name="gbSamples">
