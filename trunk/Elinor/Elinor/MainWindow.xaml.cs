@@ -81,7 +81,7 @@ namespace Elinor
             _fileSystemWatcher.Created += FileSystemWatcherOnCreated;
             _fileSystemWatcher.EnableRaisingEvents = true;
 
-            BackgroundWorker setApi = new BackgroundWorker();
+            var setApi = new BackgroundWorker();
             setApi.DoWork += (sender, args) =>
                                  {
                                      _api = new EveApi();
