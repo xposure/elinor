@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using EveAI.Live;
 
 namespace Elinor
 {
@@ -28,6 +29,8 @@ namespace Elinor
 
         private double _sell, _buy;
         private int _systemId, _typeId;
+
+        private EveApi _api;
 
         public MainWindow()
         {
@@ -78,6 +81,14 @@ namespace Elinor
             _fileSystemWatcher.Created += FileSystemWatcherOnCreated;
             _fileSystemWatcher.EnableRaisingEvents = true;
 
+            BackgroundWorker setApi = new BackgroundWorker();
+            setApi.DoWork += (sender, args) =>
+                                 {
+                                     _api = new EveApi();
+                                     
+                                 };
+            setApi.RunWorkerAsync();
+
             dgSamples.ColumnWidth = DataGridLength.SizeToCells;
             dgSamplesFive.ColumnWidth = DataGridLength.SizeToCells;
             UpdateStatus();
@@ -117,6 +128,21 @@ namespace Elinor
                 _systemId = int.TryParse(list[12], out i) ? i : -1;
                 break;
             }
+
+            BackgroundWorker setItemName = new BackgroundWorker();
+            setItemName.DoWork += (sender, args) =>
+                                      {
+                                          if(_api == null) _api = new EveApi();
+
+                                          var prod = _api.EveApiCore.FindProductType(_typeId);
+
+                                          Dispatcher.Invoke(new Action(delegate
+                                                                           {
+                                                                               lblItemName.Content = prod.Name;
+                                                                           }));
+
+                                      };
+            setItemName.RunWorkerAsync();
 
             BackgroundWorker getVolumes = new BackgroundWorker();
             getVolumes.DoWork += (sender, args) =>
