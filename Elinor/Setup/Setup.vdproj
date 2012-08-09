@@ -401,15 +401,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Elinor"
-        "ProductCode" = "8:{E14FC647-010A-49C9-A055-56C5B0414663}"
-        "PackageCode" = "8:{A4DB96E3-687C-4F34-AE7E-DD8D2BFDABBC}"
+        "ProductCode" = "8:{E7063CB1-D286-4327-AA34-0FE83C0F7AFC}"
+        "PackageCode" = "8:{5DC1DCA6-090B-45E9-9C53-15622D2FC4D2}"
         "UpgradeCode" = "8:{F54F50ED-FDA6-4419-B476-E665ADA1FCBC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.7"
+        "ProductVersion" = "8:1.0.8"
         "Manufacturer" = "8:Cynevi"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -998,7 +998,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C02DB95679C4996955920B638676262"
             {
-            "SourcePath" = "8:..\\Elinor\\obj\\x86\\Release\\Elinor.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1022C19006BB4A9C811CB9D8739B72B3"

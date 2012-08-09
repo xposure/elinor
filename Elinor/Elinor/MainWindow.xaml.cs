@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -25,7 +26,8 @@ namespace Elinor
         internal Settings Settings { get; set; }
         private FileSystemEventArgs _lastEvent;
 
-        double _sell, _buy;
+        private double _sell, _buy;
+        private int _systemId, _typeId;
 
         public MainWindow()
         {
@@ -87,26 +89,67 @@ namespace Elinor
 
             if (table == null) return;
 
+
+            var sell = from List<string> row in table
+                       where row[7] == "False" && row[13] == "0"
+                       orderby
+                           double.Parse(row[0], CultureInfo.InvariantCulture) ascending
+                       select row;
+            string sss = sell.Any() ? sell.ElementAt(0)[0] : "1.0";
+            _sell = double.Parse(sss, CultureInfo.InvariantCulture);
+
+            var buy = from List<string> row in table
+                      where row[7] == "True" && row[13] == "0"
+                      orderby
+                          double.Parse(row[0], CultureInfo.InvariantCulture) descending
+                      select row;
+            string bbb = buy.Any() ? buy.ElementAt(0)[0] : "1.0";
+            _buy = double.Parse(bbb, CultureInfo.InvariantCulture);
+
+            var aRow = from List<string> row in table
+                       where row[13] == "0"
+                       select row;
+            
+            foreach (var list in aRow)
+            {
+                int i;
+                _typeId = int.TryParse(list[2], out i) ? i : -1;
+                _systemId = int.TryParse(list[12], out i) ? i : -1;
+                break;
+            }
+
+            BackgroundWorker getVolumes = new BackgroundWorker();
+            getVolumes.DoWork += (sender, args) =>
+                                     {
+                                         var volumes = new Dictionary<string, int>();
+                                         if (_typeId > 0 && _systemId > 0)
+                                         {
+                                             volumes = VolumeFetcher.GetVolumes(_typeId, _systemId);
+                                         }
+
+
+                                         Dispatcher.Invoke(new Action(delegate
+                                                                          {
+                                                if (volumes.Count > 0)
+                                                {
+                                                    int i, j;
+                                                    if (volumes.TryGetValue("sellvol", out i) && volumes.TryGetValue("sellmov", out j))
+                                                        lblSellvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
+
+                                                    if (volumes.TryGetValue("buyvol", out i) && volumes.TryGetValue("buymov", out j))
+                                                        lblBuyvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
+                                                }
+
+
+                                         }));
+                                     };
+            getVolumes.RunWorkerAsync();
+
             Dispatcher.Invoke(new Action(delegate
                                              {
-                                                 var sell = from List<string> row in table
-                                                            where row[7] == "False" && row[13] == "0"
-                                                            orderby
-                                                                double.Parse(row[0], CultureInfo.InvariantCulture) ascending
-                                                            select row;
-                                                 string sss = sell.Any() ? sell.ElementAt(0)[0] : "1.0";
-                                                 _sell = double.Parse(sss, CultureInfo.InvariantCulture);
                                                  lblSell.Content = String.Format("{0:n} ISK", _sell);
-
-                                                 var buy = from List<string> row in table
-                                                           where row[7] == "True" && row[13] == "0"
-                                                           orderby
-                                                               double.Parse(row[0], CultureInfo.InvariantCulture) descending
-                                                           select row;
-                                                 string bbb = buy.Any() ? buy.ElementAt(0)[0] : "1.0";
-
-                                                 _buy = double.Parse(bbb, CultureInfo.InvariantCulture);
                                                  lblBuy.Content = String.Format("{0:n} ISK", _buy);
+                                                 
                                              }));
 
             var cdt = new CalculateDataThread(_sell, _buy, this);
