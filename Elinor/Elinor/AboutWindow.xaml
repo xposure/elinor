@@ -13,5 +13,7 @@
         <Separator Height="5" HorizontalAlignment="Left" Margin="12,122,0,0" Name="separator1" VerticalAlignment="Top" Width="393" />
         <Label Content="Thanks to Amida Ta and Jognu for EveAI" Height="28" HorizontalAlignment="Left" Margin="12,163,0,0" Name="label5" VerticalAlignment="Top" FontStyle="Italic" />
         <Label Content="Beta" Height="28" HorizontalAlignment="Left" Margin="118,133,0,0" Name="label6" VerticalAlignment="Top" FontStyle="Italic" />
+        <Label Content="Market data from" Height="28" HorizontalAlignment="Left" Margin="12,175,0,0" Name="label7" VerticalAlignment="Top" />
+        <Label Content="www.eve-central.com" Height="28" HorizontalAlignment="Left" Margin="109,175,0,0" Name="lblECentral" VerticalAlignment="Top" Foreground="Blue" Cursor="Hand" MouseLeave="LblECentralMouseLeave"   Panel.ZIndex="1" MouseEnter="LblECentralMouseEnter"  MouseDown="LblECentralMouseDown" />
     </Grid>
 </Window>

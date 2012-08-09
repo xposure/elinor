@@ -12,7 +12,8 @@ namespace Elinor
     /// </summary>
     public partial class AboutWindow
     {
-        private string charname = "Virppi Jouhinen";
+        private const string Charname = "Virppi Jouhinen";
+        private const string EveCentral = @"www.eve-central.com";
 
         public AboutWindow()
         {
@@ -20,8 +21,8 @@ namespace Elinor
             SetLinearGradientUnderline();
 
             Assembly assembly = Assembly.GetExecutingAssembly();
-FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-string version = fvi.ProductVersion;
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.ProductVersion;
 
             lblVersion.Content = version;
 
@@ -29,26 +30,26 @@ string version = fvi.ProductVersion;
 
         private void WindowKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key==Key.Escape)
+            if (e.Key == Key.Escape)
             {
-                Close();    
+                Close();
             }
         }
 
         private void LblCharMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Clipboard.SetText(charname);
+            Clipboard.SetText(Charname);
         }
 
         private void LblCharMouseEnter(object sender, MouseEventArgs e)
         {
-            lblChar.Content = CreateUnderlinedTextBlock(charname);
+            lblChar.Content = CreateUnderlinedTextBlock(Charname);
         }
 
         private TextBlock CreateUnderlinedTextBlock(string text)
         {
             TextDecoration myUnderline = new TextDecoration();
-            
+
             myUnderline.Pen = new Pen(Brushes.Blue, 1);
             myUnderline.PenThicknessUnit = TextDecorationUnit.FontRecommended;
 
@@ -99,7 +100,22 @@ string version = fvi.ProductVersion;
 
         private void LblCharMouseLeave(object sender, MouseEventArgs e)
         {
-            lblChar.Content = charname;
+            lblChar.Content = Charname;
+        }
+
+        private void LblECentralMouseLeave(object sender, MouseEventArgs e)
+        {
+            lblECentral.Content = EveCentral;
+        }
+
+        private void LblECentralMouseEnter(object sender, MouseEventArgs e)
+        {
+            lblECentral.Content = CreateUnderlinedTextBlock(EveCentral);
+        }
+
+        private void LblECentralMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("http://www.eve-central.com");
         }
     }
 }
