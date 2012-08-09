@@ -17,7 +17,7 @@
         <TabControl Margin="12,45,12,29" Name="tcMain">
             <TabItem Header="Overview" Name="tiOverview">
                 <Grid>
-                    <Grid Height="40" VerticalAlignment="Top">
+                    <Grid Height="40" VerticalAlignment="Top" Panel.ZIndex="1">
                         <Label FontWeight="Bold" FontSize="18" Name="lblItemName" Margin="6,3,3,3" Content="No item selected" />
                     </Grid>
                     <Grid Height="Auto" Margin="0,30,0,0" VerticalAlignment="Stretch">
@@ -93,8 +93,8 @@
                             <Image Height="16" HorizontalAlignment="Left" Margin="206,129,0,0" Name="imgCopyStatus" Stretch="Fill" VerticalAlignment="Top" Width="16" Grid.Column="1" />
                             <Label Content="0/0" Height="28" HorizontalAlignment="Right" Margin="0,63,13,0" Name="lblSellvols" VerticalAlignment="Top" />
                             <Label Content="0/0" Height="28" HorizontalAlignment="Right" Margin="0,83,13,0" Name="lblBuyvols" VerticalAlignment="Top" />
-                            <Label Content="Sell volume/movement" Height="28" HorizontalAlignment="Left" Margin="12,63,0,0" Name="label3" VerticalAlignment="Top" />
-                            <Label Content="Buy volume/movement" Height="28" HorizontalAlignment="Left" Margin="12,83,0,0" Name="label4" VerticalAlignment="Top" />
+                            <Label Content="Sell vol/mov" ToolTip="Sell orders total volume and movement" Height="28" HorizontalAlignment="Left" Margin="12,63,0,0" Name="label3" VerticalAlignment="Top" />
+                            <Label Content="Buy vol/mov" ToolTip="Buy orders total volume and movement" Height="28" HorizontalAlignment="Left" Margin="12,83,0,0" Name="label4" VerticalAlignment="Top" />
                         </Grid>
 
                         <GroupBox Header="Sample data" Margin="12,230,12,6" Name="gbSamples">
