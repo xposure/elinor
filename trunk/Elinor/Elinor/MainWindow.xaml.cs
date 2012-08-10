@@ -147,7 +147,7 @@ namespace Elinor
             BackgroundWorker getVolumes = new BackgroundWorker();
             getVolumes.DoWork += (sender, args) =>
                                      {
-                                         var volumes = new Dictionary<string, int>();
+                                         var volumes = new Dictionary<string, long>();
                                          if (_typeId > 0 && _systemId > 0)
                                          {
                                              volumes = VolumeFetcher.GetVolumes(_typeId, _systemId);
@@ -158,7 +158,7 @@ namespace Elinor
                                                                           {
                                                 if (volumes.Count > 0)
                                                 {
-                                                    int i, j;
+                                                    long i, j;
                                                     if (volumes.TryGetValue("sellvol", out i) && volumes.TryGetValue("sellmov", out j))
                                                         lblSellvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
 
