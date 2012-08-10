@@ -85,7 +85,6 @@ namespace Elinor
             setApi.DoWork += (sender, args) =>
                                  {
                                      _api = new EveApi();
-                                     
                                  };
             setApi.RunWorkerAsync();
 
@@ -139,6 +138,7 @@ namespace Elinor
                                           Dispatcher.Invoke(new Action(delegate
                                                                            {
                                                                                lblItemName.Content = prod.Name;
+                                                                               lblItemName.ToolTip = prod.Name;
                                                                            }));
 
                                       };
