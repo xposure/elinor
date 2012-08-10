@@ -10,9 +10,9 @@ namespace Elinor
 {
     class VolumeFetcher
     {
-        internal static Dictionary<string, int> GetVolumes(int typeId, int systemId)
+        internal static Dictionary<string, long> GetVolumes(int typeId, int systemId)
         {
-            var result = new Dictionary<string, int>();
+            var result = new Dictionary<string, long>();
 
             string html = GetHtml(typeId, systemId);
             if(html != null)
@@ -26,8 +26,8 @@ namespace Elinor
                 int step = 0;
                 foreach (Match m in matches)
                 {
-                    int i;
-                    if(int.TryParse(m.Value.Replace("units", "").Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out i))
+                    long i;
+                    if(long.TryParse(m.Value.Replace("units", "").Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out i))
                     {
                         switch (step)
                         {
