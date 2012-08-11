@@ -27,8 +27,8 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="1" Height="74" Margin="0,48,4,348" VerticalAlignment="Top">
-                                <Label Content="0/0" Margin="195,22,8,0" Name="lblSellvols" Height="28" VerticalAlignment="Top" HorizontalAlignment="Right" />
-                                <Label Content="0/0" Height="28" Margin="195,35,8,0" Name="lblBuyvols" VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                <Label HorizontalContentAlignment="Right" Content="0/0" Margin="44,22,8,0" Name="lblSellvols" Height="28" VerticalAlignment="Top" />
+                                <Label  HorizontalContentAlignment="Right" Content="0/0" Height="28" Margin="44,35,8,0" Name="lblBuyvols" VerticalAlignment="Top" />
                                 <Label Content="Sell" ToolTip="Sell orders total volume and movement" Height="28" HorizontalAlignment="Left" Margin="10,22,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />
                                 <Label Content="Buy" ToolTip="Buy orders total volume and movement" Height="28" HorizontalAlignment="Left" Margin="10,35,0,0" Name="label4" VerticalAlignment="Top" />
                                 <Label Content="Volume/Movement" Height="28" HorizontalAlignment="Left" Margin="6,4,0,0" Name="label10" VerticalAlignment="Top" FontWeight="Bold" />
