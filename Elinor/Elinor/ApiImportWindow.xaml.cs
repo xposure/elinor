@@ -103,7 +103,7 @@ namespace Elinor
                                                      ApiImportSelectFactionWindow aisfw =
                                                          new ApiImportSelectFactionWindow(chara)
                                                              {
-                                                                 Topmost = Topmost,
+                                                                 Topmost = true,
                                                                  Top=Top+10,
                                                                  Left = Left+10,
                                                              };
