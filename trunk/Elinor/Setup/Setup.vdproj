@@ -70,7 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F653B7DF48D821B3128A2E93727CF3AE"
+        "OwnerKey" = "8:_D0C27859FC70E94FD6CB886571DC2146"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D0C27859FC70E94FD6CB886571DC2146"
+        "OwnerKey" = "8:_F653B7DF48D821B3128A2E93727CF3AE"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -237,6 +237,11 @@
             "AssemblyAsmDisplayName" = "8:EveAI.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_4F32A1606BF1D28D62A0ABA486A618F3"
+                    {
+                    "Name" = "8:EveAI.Core.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EveAI.Core.dll"
             "TargetName" = "8:"
@@ -263,6 +268,11 @@
             "AssemblyAsmDisplayName" = "8:EveAI.Live, Version=2.3.0.0, Culture=neutral, PublicKeyToken=670e812152ebd673, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_D0C27859FC70E94FD6CB886571DC2146"
+                    {
+                    "Name" = "8:EveAI.Live.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:EveAI.Live.dll"
             "TargetName" = "8:"
@@ -289,6 +299,11 @@
             "AssemblyAsmDisplayName" = "8:Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_F653B7DF48D821B3128A2E93727CF3AE"
+                    {
+                    "Name" = "8:Ionic.Zip.Reduced.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Ionic.Zip.Reduced.dll"
             "TargetName" = "8:"
@@ -386,15 +401,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Elinor"
-        "ProductCode" = "8:{DD028325-0C81-465D-BECC-B804A156EE6A}"
-        "PackageCode" = "8:{486D1C71-BEDF-4BB0-8FEC-F6DAEE7E771E}"
+        "ProductCode" = "8:{45A4A3C4-3691-4730-A45E-5773B81E3FDE}"
+        "PackageCode" = "8:{B02F9AEE-CC36-48C5-A082-918907683CF5}"
         "UpgradeCode" = "8:{F54F50ED-FDA6-4419-B476-E665ADA1FCBC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.9"
+        "ProductVersion" = "8:1.0.10"
         "Manufacturer" = "8:Cynevi"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -983,7 +998,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C02DB95679C4996955920B638676262"
             {
-            "SourcePath" = "8:..\\Elinor\\obj\\x86\\Release\\Elinor.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_1022C19006BB4A9C811CB9D8739B72B3"
