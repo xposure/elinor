@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 
 namespace Elinor
@@ -9,7 +10,7 @@ namespace Elinor
         {
             if (d > .01)
             {
-                Clipboard.SetText(d.ToString(CultureInfo.InvariantCulture));
+                Clipboard.SetText(Math.Round(d, 2).ToString(CultureInfo.InvariantCulture));
             }
         }
 

@@ -497,7 +497,7 @@ namespace Elinor
         {
             var aiw = new ApiImportWindow
                           {
-                              Topmost = Topmost,
+                              Topmost = true,
                               Top = Top + Height / 10,
                               Left = Left + Width / 10,
                           };
