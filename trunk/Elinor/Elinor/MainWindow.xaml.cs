@@ -128,7 +128,7 @@ namespace Elinor
                 break;
             }
 
-            BackgroundWorker setItemName = new BackgroundWorker();
+            var setItemName = new BackgroundWorker();
             setItemName.DoWork += (sender, args) =>
                                       {
                                           if(_api == null) _api = new EveApi();
