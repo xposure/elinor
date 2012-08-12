@@ -55,8 +55,12 @@ namespace Elinor
                                                            _main.lblRevenue.Content = String.Format("{0:n} ISK", revenue);
                                                            _main.lblCoS.Content = String.Format("{0:n} ISK", cos);
                                                            _main.lblProfit.Content = String.Format("{0:n} ISK", revenue - cos);
+                                                           
                                                            double margin = 100 * (revenue - cos) / revenue;
-                                                           _main.lblMargin.Content = String.Format("{0:n}%", margin);
+                                                           _main.lblMargin.Content = Math.Abs(margin) < 10000 ? 
+                                                               String.Format("{0:n}%", margin) : 
+                                                               (margin > 0 ? "∞%" : "-∞%");
+                                                               
                                                            double markup = 100*(revenue - cos)/cos;
                                                            _main.lblMarkup.Content = Math.Abs(markup) < 10000 ? 
                                                                String.Format("{0:n}%", markup) :
