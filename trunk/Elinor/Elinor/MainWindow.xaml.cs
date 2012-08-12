@@ -137,8 +137,16 @@ namespace Elinor
 
                                           Dispatcher.Invoke(new Action(delegate
                                                                            {
-                                                                               lblItemName.Content = prod.Name;
-                                                                               lblItemName.ToolTip = prod.Name;
+                                                                               if (prod != null)
+                                                                               {
+                                                                                   lblItemName.Content = prod.Name;
+                                                                                   lblItemName.ToolTip = prod.Name;
+                                                                               }
+                                                                               else
+                                                                               {
+                                                                                   lblItemName.Content = "Unknown";
+                                                                                   lblItemName.ToolTip = "Product not found";
+                                                                               }
                                                                            }));
 
                                       };
