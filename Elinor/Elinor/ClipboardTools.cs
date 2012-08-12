@@ -12,6 +12,10 @@ namespace Elinor
             {
                 Clipboard.SetText(Math.Round(d, 2).ToString(CultureInfo.InvariantCulture));
             }
+            else
+            {
+                Clipboard.SetText(string.Empty);
+            }
         }
 
         internal static double GetSellPrice(double sell, Settings settings)

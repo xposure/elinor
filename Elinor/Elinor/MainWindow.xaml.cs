@@ -105,7 +105,7 @@ namespace Elinor
                        orderby
                            double.Parse(row[0], CultureInfo.InvariantCulture) ascending
                        select row;
-            string sss = sell.Any() ? sell.ElementAt(0)[0] : "1.0";
+            string sss = sell.Any() ? sell.ElementAt(0)[0] : "-1.0";
             _sell = double.Parse(sss, CultureInfo.InvariantCulture);
 
             var buy = from List<string> row in table
@@ -113,11 +113,10 @@ namespace Elinor
                       orderby
                           double.Parse(row[0], CultureInfo.InvariantCulture) descending
                       select row;
-            string bbb = buy.Any() ? buy.ElementAt(0)[0] : "1.0";
+            string bbb = buy.Any() ? buy.ElementAt(0)[0] : "-1.0";
             _buy = double.Parse(bbb, CultureInfo.InvariantCulture);
 
             var aRow = from List<string> row in table
-                       where row[13] == "0"
                        select row;
             
             foreach (var list in aRow)
@@ -174,16 +173,14 @@ namespace Elinor
                                                         lblBuyvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
                                                 }
 
-
                                          }));
                                      };
             getVolumes.RunWorkerAsync();
 
             Dispatcher.Invoke(new Action(delegate
                                              {
-                                                 lblSell.Content = String.Format("{0:n} ISK", _sell);
-                                                 lblBuy.Content = String.Format("{0:n} ISK", _buy);
-                                                 
+                                                 lblSell.Content = _sell >= 0 ? String.Format("{0:n} ISK", _sell) : "No orders in range";
+                                                 lblBuy.Content = _buy >= 0 ? String.Format("{0:n} ISK", _buy) : "No orders in range";
                                              }));
 
             var cdt = new CalculateDataThread(_sell, _buy, this);
@@ -219,6 +216,7 @@ namespace Elinor
                                              {
                                                  if (cbAutoCopy.IsChecked != null && (bool)cbAutoCopy.IsChecked)
                                                  {
+                                                     bool isSell = rbSell.IsChecked != null && (bool) rbSell.IsChecked;
 
                                                      if (rbSell.IsChecked != null && (bool)rbSell.IsChecked)
                                                          ClipboardTools.SetClipboardWrapper(ClipboardTools.GetSellPrice(_sell, Settings));
@@ -228,7 +226,11 @@ namespace Elinor
 
                                                      var img = new BitmapImage();
                                                      img.BeginInit();
-                                                     img.UriSource = new Uri("pack://application:,,,/Elinor;component/Images/38_16_193.png");
+                                                     img.UriSource = (isSell && _sell > 0) || (!isSell && _buy > 0)
+                                                                         ? new Uri(
+                                                                               "pack://application:,,,/Elinor;component/Images/38_16_193.png")
+                                                                         : new Uri(
+                                                                               "pack://application:,,,/Elinor;component/Images/38_16_194.png");
                                                      img.EndInit();
                                                      imgCopyStatus.Source = img;
                                                  }
