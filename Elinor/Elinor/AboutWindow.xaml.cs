@@ -13,7 +13,6 @@ namespace Elinor
     public partial class AboutWindow
     {
         private const string Charname = "Virppi Jouhinen";
-        private const string EveCentral = @"www.eve-central.com";
 
         public AboutWindow()
         {
@@ -48,74 +47,52 @@ namespace Elinor
 
         private TextBlock CreateUnderlinedTextBlock(string text)
         {
-            TextDecoration myUnderline = new TextDecoration();
-
-            myUnderline.Pen = new Pen(Brushes.Blue, 1);
-            myUnderline.PenThicknessUnit = TextDecorationUnit.FontRecommended;
-
-            // Set the underline decoration to a TextDecorationCollection and add it to the text block.
-            TextDecorationCollection myCollection = new TextDecorationCollection();
-            myCollection.Add(myUnderline);
-
-            TextBlock blockHead = new TextBlock();
-            blockHead.TextDecorations = myCollection;
-            blockHead.Text = text;
+            var myUnderline = new TextDecoration
+                                  {
+                                      Pen = new Pen(Brushes.Blue, 1),
+                                      PenThicknessUnit = TextDecorationUnit.FontRecommended
+                                  };
+            var myCollection = new TextDecorationCollection {myUnderline};
+            var blockHead = new TextBlock {TextDecorations = myCollection, Text = text};
             return blockHead;
         }
 
         private void SetLinearGradientUnderline()
         {
-            // Create an underline text decoration. Default is underline.
-            TextDecoration myBaseLine = new TextDecoration();
-            TextDecoration myUnderLine = new TextDecoration();
-
-            // Create a linear gradient pen for the text decoration.
-            Pen gy = new Pen();
-            gy.Brush = new LinearGradientBrush(Colors.Green, Colors.Yellow, new Point(0, 0.5), new Point(1, 0.5));
-            gy.Brush.Opacity = 0.5;
-            gy.Thickness = .75;
-            gy.DashStyle = DashStyles.DashDotDot;
+            var myBaseLine = new TextDecoration();
+            var myUnderLine = new TextDecoration();
+            
+            var gy = new Pen
+                         {
+                             Brush =
+                                 new LinearGradientBrush(Colors.Green, Colors.Yellow, new Point(0, 0.5),
+                                                         new Point(1, 0.5)) {Opacity = 0.5},
+                             Thickness = .75,
+                             DashStyle = DashStyles.DashDotDot
+                         };
             myBaseLine.Pen = gy;
             myBaseLine.PenThicknessUnit = TextDecorationUnit.FontRecommended;
             myBaseLine.Location = TextDecorationLocation.OverLine;
 
-            Pen yr = new Pen();
-            yr.Brush = new LinearGradientBrush(Colors.Yellow, Colors.Red, new Point(0, 0.5), new Point(1, 0.5));
-            yr.Brush.Opacity = 0.5;
-            yr.Thickness = .75;
-            yr.DashStyle = DashStyles.DashDotDot;
+            var yr = new Pen
+                         {
+                             Brush =
+                                 new LinearGradientBrush(Colors.Yellow, Colors.Red, new Point(0, 0.5), new Point(1, 0.5))
+                                     {Opacity = 0.5},
+                             Thickness = .75,
+                             DashStyle = DashStyles.DashDotDot
+                         };
             myUnderLine.Pen = yr;
             myUnderLine.PenThicknessUnit = TextDecorationUnit.FontRecommended;
 
-
-            // Set the underline decoration to a TextDecorationCollection and add it to the text block.
-            TextDecorationCollection myCollection = new TextDecorationCollection();
-            myCollection.Add(myBaseLine);
-            myCollection.Add(myUnderLine);
-            TextBlock block = new TextBlock();
-            block.TextDecorations = myCollection;
-            block.Text = "Elinor";
+            var myCollection = new TextDecorationCollection {myBaseLine, myUnderLine};
+            var block = new TextBlock {TextDecorations = myCollection, Text = "Elinor"};
             label1.Content = block;
         }
 
         private void LblCharMouseLeave(object sender, MouseEventArgs e)
         {
             lblChar.Content = Charname;
-        }
-
-        private void LblECentralMouseLeave(object sender, MouseEventArgs e)
-        {
-            lblECentral.Content = EveCentral;
-        }
-
-        private void LblECentralMouseEnter(object sender, MouseEventArgs e)
-        {
-            lblECentral.Content = CreateUnderlinedTextBlock(EveCentral);
-        }
-
-        private void LblECentralMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Process.Start("http://www.eve-central.com");
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Elinor
         private FileSystemEventArgs _lastEvent;
 
         private double _sell, _buy;
-        private int _systemId, _typeId;
+        private int _typeId;
 
         private EveApi _api;
 
@@ -117,13 +117,13 @@ namespace Elinor
             _buy = double.Parse(bbb, CultureInfo.InvariantCulture);
 
             var aRow = from List<string> row in table
+                       where row[13] == "0"
                        select row;
             
             foreach (var list in aRow)
             {
                 int i;
                 _typeId = int.TryParse(list[2], out i) ? i : -1;
-                _systemId = int.TryParse(list[12], out i) ? i : -1;
                 break;
             }
 
@@ -151,13 +151,13 @@ namespace Elinor
                                       };
             setItemName.RunWorkerAsync();
 
-            BackgroundWorker getVolumes = new BackgroundWorker();
+            var getVolumes = new BackgroundWorker();
             getVolumes.DoWork += (sender, args) =>
                                      {
                                          var volumes = new Dictionary<string, long>();
-                                         if (_typeId > 0 && _systemId > 0)
+                                         if (_typeId > 0)
                                          {
-                                             volumes = VolumeFetcher.GetVolumes(_typeId, _systemId);
+                                             volumes = VolumeFetcher.GetVolumes(table);
                                          }
 
 
@@ -167,10 +167,10 @@ namespace Elinor
                                                 {
                                                     long i, j;
                                                     if (volumes.TryGetValue("sellvol", out i) && volumes.TryGetValue("sellmov", out j))
-                                                        lblSellvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
+                                                        lblSellvols.Content = string.Format("{0:n0}/{1:n0}", i, j);
 
                                                     if (volumes.TryGetValue("buyvol", out i) && volumes.TryGetValue("buymov", out j))
-                                                        lblBuyvols.Content = string.Format("{0}/{1}", i.ToString(CultureInfo.InvariantCulture), j.ToString(CultureInfo.InvariantCulture));
+                                                        lblBuyvols.Content = string.Format("{0:n0}/{1:n0}", i, j);
                                                 }
 
                                          }));
