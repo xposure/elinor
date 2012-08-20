@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using EVE.Net;
@@ -130,6 +131,11 @@ namespace Elinor
            };
 
             worker.RunWorkerAsync();
+        }
+
+        private void BtnCreateKeyClick(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"https://support.eveonline.com/api/Key/CreatePredefined/524296/0/false");
         }
     }
 }
