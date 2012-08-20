@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Elinor
+﻿namespace Elinor
 {
     /// <summary>
     /// Interaction logic for App.xaml

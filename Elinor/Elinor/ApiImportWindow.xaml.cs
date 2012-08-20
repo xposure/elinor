@@ -28,22 +28,23 @@ namespace Elinor
             cbChars.Items.Clear();
             try
             {
-                var keyid = tbKeyId.Text;
-                var vcode = tbVCode.Text;
-          
+                string keyid = tbKeyId.Text;
+                string vcode = tbVCode.Text;
+
                 var info = new APIKeyInfo(keyid.ToString(CultureInfo.InvariantCulture), vcode);
                 info.Query();
-                
-                if(info.characters.Count == 0)
+
+                if (info.characters.Count == 0)
                 {
-                    MessageBox.Show("No characters for this API information.\nPlease check you API information", "No characters found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("No characters for this API information.\nPlease check you API information",
+                                    "No characters found", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
                 else
                 {
                     lblChar.Visibility = Visibility.Visible;
                     cbChars.Visibility = Visibility.Visible;
 
-                    foreach(APIKeyInfo.Character chr in info.characters)
+                    foreach (APIKeyInfo.Character chr in info.characters)
                     {
                         var chara = new CharWrapper
                                         {
@@ -56,19 +57,17 @@ namespace Elinor
                         cbChars.Items.Add(chara);
                         cbChars.SelectedIndex = 0;
                     }
-                    if(cbChars.Items.Count > 0)
+                    if (cbChars.Items.Count > 0)
                     {
                         btnOk.IsEnabled = true;
-
                     }
                 }
             }
-            catch(FormatException)
+            catch (FormatException)
             {
-                MessageBox.Show("Key ID must be a number", "Invalid Key ID", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Key ID must be a number", "Invalid Key ID", MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
-           
-            
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -85,51 +84,52 @@ namespace Elinor
         {
             btnOk.IsEnabled = false;
             pbLoading.Visibility = Visibility.Visible;
-            var chara = (CharWrapper)cbChars.SelectedItem;
+            var chara = (CharWrapper) cbChars.SelectedItem;
 
             var worker = new BackgroundWorker();
             _getStandingAccess = true;
             worker.RunWorkerCompleted += delegate
                                              {
-                                                 if(_getStandingAccess == true) DialogResult = true;
+                                                 if (_getStandingAccess == true) DialogResult = true;
                                                  else Dispatcher.Invoke(new Action(Close));
                                              };
             worker.DoWork += delegate
-            {
-                var sheet = new CharacterSheet(chara.KeyId, chara.VCode, chara.CharId.ToString(CultureInfo.InvariantCulture));
-                sheet.Query();
+                                 {
+                                     var sheet = new CharacterSheet(chara.KeyId, chara.VCode,
+                                                                    chara.CharId.ToString(CultureInfo.InvariantCulture));
+                                     sheet.Query();
 
-                foreach (CharacterSheet.Skill skill in sheet.skills)
-                {
-                    if (skill.typeID == 3446) //"Broker Relations"
-                        Settings.BrokerRelations = skill.level;
-                    if (skill.typeID == 16622) //"Accounting" 
-                        Settings.Accounting = skill.level;
-                }
+                                     foreach (CharacterSheet.Skill skill in sheet.skills)
+                                     {
+                                         if (skill.typeID == 3446) //"Broker Relations"
+                                             Settings.BrokerRelations = skill.level;
+                                         if (skill.typeID == 16622) //"Accounting" 
+                                             Settings.Accounting = skill.level;
+                                     }
 
-                Dispatcher.Invoke(new Action(delegate
-                                                 {
-                                                     var aisfw =
-                                                         new ApiImportSelectFactionWindow(chara)
-                                                             {
-                                                                 Topmost = true,
-                                                                 Top=Top+10,
-                                                                 Left = Left+10,
-                                                             };
-                _getStandingAccess = aisfw.ShowDialog();
-                if (_getStandingAccess == true)
-                {
-                    Settings.CorpStanding = aisfw.Corp;
-                    Settings.FactionStanding = aisfw.Faction;
-                }
-                else
-                {
-                    _getStandingAccess = false;
-                }
-                }));
+                                     Dispatcher.Invoke(new Action(delegate
+                                                                      {
+                                                                          var aisfw =
+                                                                              new ApiImportSelectFactionWindow(chara)
+                                                                                  {
+                                                                                      Topmost = true,
+                                                                                      Top = Top + 10,
+                                                                                      Left = Left + 10,
+                                                                                  };
+                                                                          _getStandingAccess = aisfw.ShowDialog();
+                                                                          if (_getStandingAccess == true)
+                                                                          {
+                                                                              Settings.CorpStanding = aisfw.Corp;
+                                                                              Settings.FactionStanding = aisfw.Faction;
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              _getStandingAccess = false;
+                                                                          }
+                                                                      }));
 
-                Settings.ProfileName = chara.Charname;
-           };
+                                     Settings.ProfileName = chara.Charname;
+                                 };
 
             worker.RunWorkerAsync();
         }

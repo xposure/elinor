@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Elinor
 {
-    class CSVReader
+    internal class CSVReader
     {
         internal static List<List<string>> GetTableFromCSV(string path)
         {
@@ -16,7 +16,7 @@ namespace Elinor
 
                 while (!sr.EndOfStream)
                 {
-                    string readLine = sr.ReadLine();
+                    var readLine = sr.ReadLine();
                     if (readLine != null) result.Add(new List<string>(readLine.Split(",".ToCharArray())));
                 }
                 return result;

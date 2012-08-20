@@ -2,15 +2,15 @@
 using System.Data;
 using System.Windows.Media;
 
-
 namespace Elinor
 {
-    class CalculateDataThread
+    internal class CalculateDataThread
     {
-        private readonly double _sellPrice, _buyPrice;
+        private readonly double _buyPrice;
         private readonly MainWindow _main;
+        private readonly double _sellPrice;
 
-        public CalculateDataThread(double sell, double buy,MainWindow main)
+        public CalculateDataThread(double sell, double buy, MainWindow main)
         {
             _sellPrice = sell;
             _buyPrice = buy;
@@ -19,7 +19,7 @@ namespace Elinor
 
         internal static double BrokerFee(int brokerRelations, double corpStanding, double factionStanding)
         {
-            return ((.01 - (brokerRelations * .0005)) / Math.Pow(2, ((0.14 * factionStanding) + (.06 * corpStanding))));
+            return ((.01 - (brokerRelations*.0005))/Math.Pow(2, ((0.14*factionStanding) + (.06*corpStanding))));
         }
 
         internal static double SalesTax(int accounting)
@@ -32,19 +32,20 @@ namespace Elinor
             if (_sellPrice < 0 || _buyPrice < 0)
             {
                 _main.Dispatcher.Invoke(new Action(delegate
-                                            {
-                                                _main.lblRevenue.Content = "- ISK";
-                                                _main.lblCoS.Content = "- ISK";
-                                                _main.lblProfit.Content = "- ISK";
-                                                _main.lblMargin.Content = "- %";
-                                                _main.lblMarkup.Content = "- %";
+                                                       {
+                                                           _main.lblRevenue.Content = "- ISK";
+                                                           _main.lblCoS.Content = "- ISK";
+                                                           _main.lblProfit.Content = "- ISK";
+                                                           _main.lblMargin.Content = "- %";
+                                                           _main.lblMarkup.Content = "- %";
 
-                                                _main.dgSamples.DataContext = null;
-                                                _main.dgSamplesFive.DataContext = null;
+                                                           _main.dgSamples.DataContext = null;
+                                                           _main.dgSamplesFive.DataContext = null;
 
-                                                _main.brdImportant.BorderBrush = new SolidColorBrush(Colors.LightGray);
-                                                _main.lblMargin.Foreground = new SolidColorBrush(Colors.Black);
-                                            }));
+                                                           _main.brdImportant.BorderBrush =
+                                                               new SolidColorBrush(Colors.LightGray);
+                                                           _main.lblMargin.Foreground = new SolidColorBrush(Colors.Black);
+                                                       }));
             }
             else
             {
@@ -118,8 +119,6 @@ namespace Elinor
 
                                                            _main.dgSamples.ItemsSource = samples.AsDataView();
                                                            _main.dgSamplesFive.ItemsSource = samplesF.AsDataView();
-
-
                                                        }));
             }
         }

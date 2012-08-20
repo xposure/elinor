@@ -21,8 +21,8 @@ namespace Elinor
         private void BtnOkClick(object sender, RoutedEventArgs e)
         {
             bool ok = true;
-            char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-            foreach (char invalid in invalidFileNameChars)
+            var invalidFileNameChars = Path.GetInvalidFileNameChars();
+            foreach (var invalid in invalidFileNameChars)
             {
                 if (tbName.Text.Contains(invalid.ToString(CultureInfo.InvariantCulture))) ok = false;
             }
@@ -35,7 +35,7 @@ namespace Elinor
             }
             else
             {
-                string sInvalid = invalidFileNameChars.Where(invalidFileNameChar => 
+                var sInvalid = invalidFileNameChars.Where(invalidFileNameChar => 
                     !char.IsControl(invalidFileNameChar)).Aggregate("", (current, invalidFileNameChar) 
                         => current + (invalidFileNameChar + " "));
 

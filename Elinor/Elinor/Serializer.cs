@@ -1,8 +1,8 @@
-﻿namespace Elinor
-{
-    using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
+namespace Elinor
+{
     public static class Serializer
     {
         internal static void SerializeObject(string filename, Settings objectToSerialize)
@@ -17,7 +17,7 @@
         {
             Stream stream = File.Open(filename, FileMode.Open);
             var bFormatter = new BinaryFormatter();
-            var objectToSerialize = (Settings)bFormatter.Deserialize(stream);
+            var objectToSerialize = (Settings) bFormatter.Deserialize(stream);
             stream.Close();
             return objectToSerialize;
         }
