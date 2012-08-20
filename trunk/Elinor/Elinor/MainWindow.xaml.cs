@@ -8,9 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using EVE.Net;
 
@@ -21,6 +19,8 @@ namespace Elinor
     /// </summary>
     public partial class MainWindow
     {
+        internal Settings Settings { get; set; }
+
         private readonly FileSystemWatcher _fileSystemWatcher = new FileSystemWatcher();
 
         private readonly DirectoryInfo _logdir =
@@ -71,9 +71,7 @@ namespace Elinor
                 SetWatcherAndStuff();
             }
         }
-
-        internal Settings Settings { get; set; }
-
+        
         private void SetWatcherAndStuff()
         {
             if (!_logdir.Exists)
@@ -226,7 +224,7 @@ namespace Elinor
                                              }));
 
             _lastEvent = fileSystemEventArgs;
-            while (IsFileLocked(new FileInfo(fileSystemEventArgs.FullPath))) Thread.Sleep(25);
+            while (MiscTools.IsFileLocked(new FileInfo(fileSystemEventArgs.FullPath))) Thread.Sleep(25);
             if (fileSystemEventArgs.ChangeType == WatcherChangeTypes.Created &&
                 fileSystemEventArgs.Name.EndsWith(".txt"))
             {
@@ -260,27 +258,7 @@ namespace Elinor
                                              }));
             UpdateStatus();
         }
-
-        protected virtual bool IsFileLocked(FileInfo file)
-        {
-            FileStream stream = null;
-
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch (IOException)
-            {
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
-            return false;
-        }
-
+        
         private void UpdateStatus()
         {
             long size = _logdir.GetFiles().Sum(fi => fi.Length);
@@ -291,11 +269,7 @@ namespace Elinor
 
         private void TbStatusMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            foreach (FileInfo fi in _logdir.GetFiles())
-            {
-                if (!IsFileLocked(fi))
-                    fi.Delete();
-            }
+            CacheTools.ClearMarketLogs(_logdir);
             UpdateStatus();
         }
 
@@ -390,7 +364,8 @@ namespace Elinor
 
             PopupPlacements();
 
-            ShowTutorialHint();
+            Tutorial.Main = this;
+            Tutorial.ShowTutorialHint();
 
             UpdateProfiles();
         }
@@ -411,40 +386,7 @@ namespace Elinor
             ppFactionStanding.PlacementTarget = tbFactionStanding;
             ppCorpStanding.PlacementTarget = tbCorpStanding;
         }
-
-        private void ShowTutorialHint()
-        {
-            if (Properties.Settings.Default.showtutorial)
-            {
-                Properties.Settings.Default.showtutorial = false;
-                Properties.Settings.Default.Save();
-                Tutorial.FlashControl(btnTutorial, Colors.Yellow, this);
-                var tutHint = new Popup
-                                  {
-                                      VerticalOffset = -3,
-                                      PlacementTarget = btnTutorial,
-                                      Placement = PlacementMode.Top,
-                                      IsOpen = true
-                                  };
-                var brd = new Border
-                              {
-                                  BorderBrush =
-                                      new LinearGradientBrush(Colors.LightSlateGray, Colors.Black, .45),
-                                  BorderThickness = new Thickness(1),
-                                  Background =
-                                      new LinearGradientBrush(Colors.LightYellow, Colors.PaleGoldenrod, .25),
-                                  Child = new TextBlock
-                                              {
-                                                  Margin = new Thickness(4),
-                                                  FontSize = 12,
-                                                  Text = "Click to start a short tutorial on how to use Elinor"
-                                              }
-                              };
-                tutHint.Child = brd;
-                tutHint.MouseDown += delegate { tutHint.IsOpen = false; };
-            }
-        }
-
+        
         private void UpdateProfiles()
         {
             foreach (FileInfo file in _profdir.GetFiles())
@@ -649,7 +591,6 @@ namespace Elinor
 
         private void BtnTutorialClick(object sender, RoutedEventArgs e)
         {
-            Tutorial.Main = this;
             Tutorial.NextTip();
         }
 
@@ -797,32 +738,13 @@ namespace Elinor
                 _closePending = true;
                 e.Cancel = true;
                 var clearCache = new BackgroundWorker();
-                clearCache.DoWork += (o, args) => ClearCache();
+                clearCache.DoWork += (o, args) => CacheTools.ClearApiCache();
                 clearCache.RunWorkerCompleted += (o, args) =>
                                                      {
                                                          _cacheCleared = true;
                                                          if (_closePending) Close();
                                                      };
                 clearCache.RunWorkerAsync();
-            }
-        }
-
-        private void ClearCache()
-        {
-            if (Directory.Exists("Cache"))
-            {
-                foreach (string file in Directory.GetFiles("Cache"))
-                {
-                    try
-                    {
-                        File.Delete(file);
-                    }
-                    // ReSharper disable EmptyGeneralCatchClause
-                    catch //no fucks given
-                    // ReSharper restore EmptyGeneralCatchClause
-                    {
-                    }
-                }
             }
         }
     }

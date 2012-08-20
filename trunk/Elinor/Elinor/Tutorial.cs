@@ -13,6 +13,39 @@ namespace Elinor
         private static int _step;
         private static Popup _popup = new Popup();
 
+        public static void ShowTutorialHint()
+        {
+            if (Properties.Settings.Default.showtutorial)
+            {
+                Properties.Settings.Default.showtutorial = false;
+                Properties.Settings.Default.Save();
+                FlashControl(Main.btnTutorial, Colors.Yellow, Main);
+                var tutHint = new Popup
+                {
+                    VerticalOffset = -3,
+                    PlacementTarget = Main.btnTutorial,
+                    Placement = PlacementMode.Top,
+                    IsOpen = true
+                };
+                var brd = new Border
+                {
+                    BorderBrush =
+                        new LinearGradientBrush(Colors.LightSlateGray, Colors.Black, .45),
+                    BorderThickness = new Thickness(1),
+                    Background =
+                        new LinearGradientBrush(Colors.LightYellow, Colors.PaleGoldenrod, .25),
+                    Child = new TextBlock
+                    {
+                        Margin = new Thickness(4),
+                        FontSize = 12,
+                        Text = "Click to start a short tutorial on how to use Elinor"
+                    }
+                };
+                tutHint.Child = brd;
+                tutHint.MouseDown += delegate { tutHint.IsOpen = false; };
+            }
+        }
+
         public static void NextTip()
         {
             if (_step >= 15) Cancel();
