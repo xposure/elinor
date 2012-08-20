@@ -14,6 +14,7 @@ namespace Elinor
     public partial class ApiImportWindow
     {
         public Settings Settings = new Settings();
+        private bool? _getStandingAccess;
 
         public ApiImportWindow()
         {
@@ -58,7 +59,7 @@ namespace Elinor
                     if(cbChars.Items.Count > 0)
                     {
                         btnOk.IsEnabled = true;
-                        //Topmost = false;
+
                     }
                 }
             }
@@ -82,15 +83,15 @@ namespace Elinor
 
         private void BtnOkClick(object sender, RoutedEventArgs e)
         {
-            bool? success = true;
             btnOk.IsEnabled = false;
             pbLoading.Visibility = Visibility.Visible;
             var chara = (CharWrapper)cbChars.SelectedItem;
 
             var worker = new BackgroundWorker();
+            _getStandingAccess = true;
             worker.RunWorkerCompleted += delegate
                                              {
-                                                 if(success == true) DialogResult = true;
+                                                 if(_getStandingAccess == true) DialogResult = true;
                                                  else Dispatcher.Invoke(new Action(Close));
                                              };
             worker.DoWork += delegate
@@ -115,15 +116,15 @@ namespace Elinor
                                                                  Top=Top+10,
                                                                  Left = Left+10,
                                                              };
-                success = aisfw.ShowDialog();
-                if (success == true)
+                _getStandingAccess = aisfw.ShowDialog();
+                if (_getStandingAccess == true)
                 {
                     Settings.CorpStanding = aisfw.Corp;
                     Settings.FactionStanding = aisfw.Faction;
                 }
                 else
                 {
-                    success = false;
+                    _getStandingAccess = false;
                 }
                 }));
 
