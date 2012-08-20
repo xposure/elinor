@@ -13,5 +13,6 @@
         <Button Content="OK" Height="23" HorizontalAlignment="Left" Margin="344,165,0,0" Name="btnOk" VerticalAlignment="Top" Width="75" Click="BtnOkClick" IsEnabled="False" />
         <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="263,165,0,0" Name="btnCancel" VerticalAlignment="Top" Width="75" Click="BtnCancelClick" />
         <ProgressBar Height="23" HorizontalAlignment="Left" Margin="12,165,0,0" Name="pbLoading" VerticalAlignment="Top" Width="245" Visibility="Hidden" IsIndeterminate="True" />
+        <Button Content="Create new API key" Height="23" HorizontalAlignment="Left" Margin="199,77,0,0" Name="btnCreateKey" VerticalAlignment="Top" Width="120" Click="BtnCreateKeyClick" />
     </Grid>
 </Window>
