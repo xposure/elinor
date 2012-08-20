@@ -58,7 +58,7 @@ namespace Elinor
                     if(cbChars.Items.Count > 0)
                     {
                         btnOk.IsEnabled = true;
-                        Topmost = false;
+                        //Topmost = false;
                     }
                 }
             }
