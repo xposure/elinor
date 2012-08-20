@@ -12,18 +12,18 @@ namespace Elinor
     /// </summary>
     public partial class SelectLogPathWindow
     {
-        internal DirectoryInfo Logpath { get; private set; }
-
         public SelectLogPathWindow()
         {
             InitializeComponent();
         }
 
+        internal DirectoryInfo Logpath { get; private set; }
+
         private void BtnFileSelectClick(object sender, RoutedEventArgs e)
         {
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
-            if(result == System.Windows.Forms.DialogResult.OK)
+            if (result == System.Windows.Forms.DialogResult.OK)
             {
                 tbPath.Text = dialog.SelectedPath;
             }
@@ -41,11 +41,11 @@ namespace Elinor
                 Logpath = new DirectoryInfo(tbPath.Text);
                 DialogResult = true;
             }
-            catch(SecurityException)
+            catch (SecurityException)
             {
                 MessageBox.Show("You don't have access to that Folder");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("Something went wrong.");
             }

@@ -24,7 +24,6 @@ namespace Elinor
             string version = fvi.ProductVersion;
 
             lblVersion.Content = version;
-
         }
 
         private void WindowKeyDown(object sender, KeyEventArgs e)
@@ -61,7 +60,7 @@ namespace Elinor
         {
             var myBaseLine = new TextDecoration();
             var myUnderLine = new TextDecoration();
-            
+
             var gy = new Pen
                          {
                              Brush =

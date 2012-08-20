@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Elinor
 {
-    class ClipboardTools
+    internal class ClipboardTools
     {
         internal static void SetClipboardWrapper(double d)
         {
@@ -17,11 +17,11 @@ namespace Elinor
 
             double result = sell;
 
-            if(settings.AdvancedStepSettings)
+            if (settings.AdvancedStepSettings)
             {
                 result -= (result*settings.SellPercentage > settings.SellThreshold)
                               ? settings.SellThreshold
-                              : settings.SellPercentage * result;
+                              : settings.SellPercentage*result;
             }
             else
             {
@@ -37,12 +37,11 @@ namespace Elinor
 
             double result = buy;
 
-            if(settings.AdvancedStepSettings)
+            if (settings.AdvancedStepSettings)
             {
                 result += result*settings.BuyPercentage > settings.BuyThreshold
                               ? settings.BuyThreshold
                               : settings.BuyPercentage*result;
-
             }
             else
             {
