@@ -12,7 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using EveAI.Live;
+using EVE.Net;
 
 namespace Elinor
 {
@@ -29,8 +29,6 @@ namespace Elinor
 
         private double _sell, _buy;
         private int _typeId;
-
-        private EveApi _api;
 
         public MainWindow()
         {
@@ -77,16 +75,17 @@ namespace Elinor
             if (!_profdir.Exists)
                 _profdir.Create();
 
+            var init = new BackgroundWorker();
+            init.DoWork += (sender, args) =>
+                               {
+                                   var stat = new ServerStatus();
+                                   stat.Query();
+                               };
+            init.RunWorkerAsync();
+
             _fileSystemWatcher.Path = _logdir.FullName;
             _fileSystemWatcher.Created += FileSystemWatcherOnCreated;
             _fileSystemWatcher.EnableRaisingEvents = true;
-
-            var setApi = new BackgroundWorker();
-            setApi.DoWork += (sender, args) =>
-                                 {
-                                     _api = new EveApi();
-                                 };
-            setApi.RunWorkerAsync();
 
             dgSamples.ColumnWidth = DataGridLength.SizeToCells;
             dgSamplesFive.ColumnWidth = DataGridLength.SizeToCells;
@@ -130,16 +129,18 @@ namespace Elinor
             var setItemName = new BackgroundWorker();
             setItemName.DoWork += (sender, args) =>
                                       {
-                                          if(_api == null) _api = new EveApi();
 
-                                          var prod = _api.EveApiCore.FindProductType(_typeId);
+                                          var prod = new TypeName(new[]{_typeId.ToString(CultureInfo.InvariantCulture)});
+                                          prod.Query();
 
                                           Dispatcher.Invoke(new Action(delegate
                                                                            {
-                                                                               if (prod != null)
+                                                                               if (prod.types.Count > 0)
                                                                                {
-                                                                                   lblItemName.Content = prod.Name;
-                                                                                   lblItemName.ToolTip = prod.Name;
+                                                                                   TypeName.GameType type =
+                                                                                       prod.types[0];
+                                                                                   lblItemName.Content = type.typeName;
+                                                                                   lblItemName.ToolTip = type.typeName;
                                                                                }
                                                                                else
                                                                                {
@@ -302,9 +303,9 @@ namespace Elinor
                                                  slMinimum.Value = Settings.MinimumThreshold;
                                                  
                                                  tbCorpStanding.Text =
-                                                     Settings.CorpStanding.ToString(CultureInfo.InvariantCulture);
+                                                     string.Format(CultureInfo.InvariantCulture, "{0:n2}", Settings.CorpStanding);
                                                  tbFactionStanding.Text =
-                                                     Settings.FactionStanding.ToString(CultureInfo.InvariantCulture);
+                                                     string.Format(CultureInfo.InvariantCulture, "{0:n2}", Settings.FactionStanding);
 
                                                  cbBrokerRelations.SelectedIndex = Settings.BrokerRelations;
                                                  cbAccounting.SelectedIndex = Settings.Accounting;

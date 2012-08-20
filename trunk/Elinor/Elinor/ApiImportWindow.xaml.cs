@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
-using EveAI.Live;
-using EveAI.Live.Account;
-using EveAI.Live.Character;
+using EVE.Net;
+using EVE.Net.Character;
 
 namespace Elinor
 {
@@ -26,12 +26,13 @@ namespace Elinor
             cbChars.Items.Clear();
             try
             {
-                long keyid = long.Parse(tbKeyId.Text);
-                string vcode = tbVCode.Text;
-
-                EveApi api = new EveApi(keyid, vcode);
-                APIKeyInfo info = api.getApiKeyInfo();
-                if(info.Characters.Count == 0)
+                var keyid = tbKeyId.Text;
+                var vcode = tbVCode.Text;
+          
+                var info = new APIKeyInfo(keyid.ToString(CultureInfo.InvariantCulture), vcode);
+                info.Query();
+                
+                if(info.characters.Count == 0)
                 {
                     MessageBox.Show("No characters for this API information.\nPlease check you API information", "No characters found", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -40,13 +41,15 @@ namespace Elinor
                     lblChar.Visibility = Visibility.Visible;
                     cbChars.Visibility = Visibility.Visible;
 
-                    foreach(AccountEntry ae in info.Characters)
+                    foreach(APIKeyInfo.Character chr in info.characters)
                     {
-                        CharWrapper chara = new CharWrapper();
-                        chara.KeyId = keyid;
-                        chara.VCode = vcode;
-                        chara.Charname = ae.Name;
-                        chara.CharId = ae.CharacterID;
+                        var chara = new CharWrapper
+                                        {
+                                            KeyId = keyid,
+                                            VCode = vcode,
+                                            Charname = chr.characterName,
+                                            CharId = chr.characterID
+                                        };
 
                         cbChars.Items.Add(chara);
                         cbChars.SelectedIndex = 0;
@@ -78,41 +81,51 @@ namespace Elinor
 
         private void BtnOkClick(object sender, RoutedEventArgs e)
         {
+            bool? success = true;
             btnOk.IsEnabled = false;
             pbLoading.Visibility = Visibility.Visible;
-            CharWrapper chara = (CharWrapper)cbChars.SelectedItem;
+            var chara = (CharWrapper)cbChars.SelectedItem;
 
-            BackgroundWorker worker = new BackgroundWorker();
-
-            worker.RunWorkerCompleted += delegate { DialogResult = true; };
-
+            var worker = new BackgroundWorker();
+            worker.RunWorkerCompleted += delegate
+                                             {
+                                                 if(success == true) DialogResult = true;
+                                                 else Dispatcher.Invoke(new Action(Close));
+                                             };
             worker.DoWork += delegate
             {
-                EveApi api = new EveApi(chara.KeyId, chara.VCode, chara.CharId);
-                
-                foreach (CharacterSheet.LearnedSkill skill in api.GetCharacterSheet().Skills)
+                var sheet = new CharacterSheet(chara.KeyId, chara.VCode, chara.CharId.ToString(CultureInfo.InvariantCulture));
+                sheet.Query();
+
+                foreach (CharacterSheet.Skill skill in sheet.skills)
                 {
-                    if (skill.Skill.Name == "Broker Relations") 
-                        Settings.BrokerRelations = skill.Level;
-                    if (skill.Skill.Name == "Accounting") 
-                        Settings.Accounting = skill.Level;
+                    if (skill.typeID == 3446) //"Broker Relations"
+                        Settings.BrokerRelations = skill.level;
+                    if (skill.typeID == 16622) //"Accounting" 
+                        Settings.Accounting = skill.level;
                 }
 
                 Dispatcher.Invoke(new Action(delegate
                                                  {
-                                                     ApiImportSelectFactionWindow aisfw =
+                                                     var aisfw =
                                                          new ApiImportSelectFactionWindow(chara)
                                                              {
                                                                  Topmost = true,
                                                                  Top=Top+10,
                                                                  Left = Left+10,
                                                              };
-                if (aisfw.ShowDialog() == true)
+                success = aisfw.ShowDialog();
+                if (success == true)
                 {
                     Settings.CorpStanding = aisfw.Corp;
                     Settings.FactionStanding = aisfw.Faction;
                 }
+                else
+                {
+                    success = false;
+                }
                 }));
+
                 Settings.ProfileName = chara.Charname;
            };
 

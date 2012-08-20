@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using EveAI.Live;
+﻿using System.Globalization;
+using System.Windows;
+using EVE.Net.Character;
 
 namespace Elinor
 {
@@ -10,7 +11,7 @@ namespace Elinor
     {
         public double Faction;
         public double Corp;
-        private CharWrapper chara;
+        private readonly CharWrapper chara;
 
         internal ApiImportSelectFactionWindow(CharWrapper chr)
         {
@@ -21,20 +22,28 @@ namespace Elinor
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            EveApi api = new EveApi(chara.KeyId, chara.VCode, chara.CharId);
-            StandingWrapper none = new StandingWrapper("<None>", .0);
+            var none = new StandingWrapper("<None>", .0);
             cbCorp.Items.Add(none);
             cbFaction.Items.Add(none);
             cbCorp.SelectedIndex = 0;
             cbFaction.SelectedIndex = 0;
 
-            foreach (Standing standing in api.GetCharacterStandings())
-            {
-                StandingWrapper wrap = new StandingWrapper(standing.EntityName, standing.Value);
+            var standings = new NPCStandings(chara.KeyId, chara.VCode, chara.CharId.ToString(CultureInfo.InvariantCulture));
+            standings.Query();
 
-                if (standing.Type == StandingType.NPCCorporations) cbCorp.Items.Add(wrap);
-                if (standing.Type == StandingType.Factions) cbFaction.Items.Add(wrap);
+            foreach (var standing in standings.standings.NPCCorporations)
+            {
+                var wrap = new StandingWrapper(standing.fromName, standing.standing);
+                cbCorp.Items.Add(wrap);
             }
+
+            foreach (var standing in standings.standings.factions)
+            {
+                var wrap = new StandingWrapper(standing.fromName, standing.standing);
+                cbFaction.Items.Add(wrap);
+            }
+
+            
         }
 
         private void BtnOkClick(object sender, RoutedEventArgs e)
