@@ -11,12 +11,12 @@ namespace Elinor
     {
         public double Faction;
         public double Corp;
-        private readonly CharWrapper chara;
+        private readonly CharWrapper _chara;
 
         internal ApiImportSelectFactionWindow(CharWrapper chr)
         {
             InitializeComponent();
-            chara = chr;
+            _chara = chr;
 
         }
 
@@ -28,7 +28,7 @@ namespace Elinor
             cbCorp.SelectedIndex = 0;
             cbFaction.SelectedIndex = 0;
 
-            var standings = new NPCStandings(chara.KeyId, chara.VCode, chara.CharId.ToString(CultureInfo.InvariantCulture));
+            var standings = new NPCStandings(_chara.KeyId, _chara.VCode, _chara.CharId.ToString(CultureInfo.InvariantCulture));
             standings.Query();
 
             foreach (var standing in standings.standings.NPCCorporations)

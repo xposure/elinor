@@ -783,7 +783,8 @@ namespace Elinor
                     {
                         File.Delete(file);
                     }
-                    catch(Exception){} 
+                    catch //no fucks given
+                    {} 
                 }
             }
         }

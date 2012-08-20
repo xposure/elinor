@@ -8,14 +8,7 @@ namespace Elinor
     {
         internal static void SetClipboardWrapper(double d)
         {
-            if (d > .01)
-            {
-                Clipboard.SetText(Math.Round(d, 2).ToString(CultureInfo.InvariantCulture));
-            }
-            else
-            {
-                Clipboard.SetText(string.Empty);
-            }
+            Clipboard.SetText(d > .01 ? Math.Round(d, 2).ToString(CultureInfo.InvariantCulture) : string.Empty);
         }
 
         internal static double GetSellPrice(double sell, Settings settings)
