@@ -7,7 +7,6 @@
         internal string Charname { get; set; }
         internal string VCode { get; set; }
      
-
         public override string ToString()
         {
             return Charname;

@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -34,12 +35,9 @@ namespace Elinor
             }
             else
             {
-                string sInvalid = "";
-
-                foreach (char invalidFileNameChar in invalidFileNameChars)
-                {
-                    if (!char.IsControl(invalidFileNameChar)) sInvalid += invalidFileNameChar + " ";
-                }
+                string sInvalid = invalidFileNameChars.Where(invalidFileNameChar => 
+                    !char.IsControl(invalidFileNameChar)).Aggregate("", (current, invalidFileNameChar) 
+                        => current + (invalidFileNameChar + " "));
 
                 MessageBox.Show(string.Format("Profile name may not contain\n{0}", sInvalid),
                                 "Invalid profile name",
