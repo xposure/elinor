@@ -111,10 +111,12 @@
     <Compile Include="ApiImportWindow.xaml.cs">
       <DependentUpon>ApiImportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CacheTools.cs" />
     <Compile Include="CharWrapper.cs" />
     <Compile Include="ClipboardTools.cs" />
     <Compile Include="CSVReader.cs" />
     <Compile Include="DropDownButton.cs" />
+    <Compile Include="MiscTools.cs" />
     <Compile Include="SelectLogPathWindow.xaml.cs">
       <DependentUpon>SelectLogPathWindow.xaml</DependentUpon>
     </Compile>
