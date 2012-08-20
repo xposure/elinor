@@ -817,7 +817,9 @@ namespace Elinor
                     {
                         File.Delete(file);
                     }
+                    // ReSharper disable EmptyGeneralCatchClause
                     catch //no fucks given
+                    // ReSharper restore EmptyGeneralCatchClause
                     {
                     }
                 }
