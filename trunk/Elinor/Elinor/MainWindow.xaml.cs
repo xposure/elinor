@@ -753,7 +753,40 @@ namespace Elinor
                 }
             }
         }
-       
+
+        private bool _cacheCleared;
+        private bool _closePending;
+        private void WindowClosing(object sender, CancelEventArgs e)
+        {
+            if (!_cacheCleared)
+            {
+                _closePending = true;
+                e.Cancel = true;
+                var clearCache = new BackgroundWorker();
+                clearCache.DoWork += (o, args) => ClearCache();
+                clearCache.RunWorkerCompleted += (o, args) =>
+                                                     {
+                                                         _cacheCleared = true;
+                                                         if(_closePending) Close();
+                                                     };
+                clearCache.RunWorkerAsync();
+            }
+        }
+
+        private void ClearCache()
+        {
+            if(Directory.Exists("Cache"))
+            {
+                foreach (var file in Directory.GetFiles("Cache"))
+                {
+                    try
+                    {
+                        File.Delete(file);
+                    }
+                    catch(Exception){} 
+                }
+            }
+        }
     }
 
 }
