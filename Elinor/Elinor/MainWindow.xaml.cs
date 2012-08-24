@@ -382,6 +382,7 @@ namespace Elinor
             delayer.RunWorkerAsync();
 
             btnStayOnTop.IsChecked = Properties.Settings.Default.pin;
+            Topmost = Properties.Settings.Default.pin;
             cbAutoCopy.IsChecked = Properties.Settings.Default.autocopy;
         }
 
