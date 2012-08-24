@@ -58,5 +58,29 @@ namespace Elinor.Properties {
                 this["checkforupdates"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool autocopy {
+            get {
+                return ((bool)(this["autocopy"]));
+            }
+            set {
+                this["autocopy"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool pin {
+            get {
+                return ((bool)(this["pin"]));
+            }
+            set {
+                this["pin"] = value;
+            }
+        }
     }
 }
