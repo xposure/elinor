@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using EVE.Net.Character;
 
 namespace Elinor
@@ -42,6 +43,8 @@ namespace Elinor
                 var wrap = new StandingWrapper(standing.fromName, standing.standing);
                 cbFaction.Items.Add(wrap);
             }
+
+            ToolTipService.SetShowDuration(imgHelp, int.MaxValue);
         }
 
         private void BtnOkClick(object sender, RoutedEventArgs e)
