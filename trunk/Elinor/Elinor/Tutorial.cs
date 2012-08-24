@@ -19,7 +19,7 @@ namespace Elinor
             {
                 Properties.Settings.Default.showtutorial = false;
                 Properties.Settings.Default.Save();
-                FlashControl(Main.btnTutorial, Colors.Yellow, Main);
+                MiscTools.FlashControl(Main.btnTutorial, Colors.Yellow, Main);
                 var tutHint = new Popup
                 {
                     VerticalOffset = -3,
@@ -101,7 +101,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = 5;
                     _popup.HorizontalOffset = -50;
-                    FlashControl(Main.cbProfiles, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.cbProfiles, Colors.LimeGreen, Main);
                     break;
 
                 case 2:
@@ -116,7 +116,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -5;
-                    FlashControl(Main.btnNew, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnNew, Colors.LimeGreen, Main);
                     break;
 
                 case 3:
@@ -131,7 +131,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -5;
-                    FlashControl(Main.btnImport, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnImport, Colors.LimeGreen, Main);
                     break;
 
                 case 4:
@@ -145,7 +145,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -5;
-                    FlashControl(Main.btnDelete, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnDelete, Colors.LimeGreen, Main);
                     break;
 
 
@@ -161,8 +161,8 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = 5;
                     _popup.HorizontalOffset = 10;
-                    FlashControl(Main.tiSettings, Colors.LimeGreen, Main);
-                    FlashControl(Main.gbMarginsSettings, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.tiSettings, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.gbMarginsSettings, Colors.LimeGreen, Main);
                     break;
 
                 case 6:
@@ -177,7 +177,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = 10;
-                    FlashControl(Main.gbFeesAndTaxes, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.gbFeesAndTaxes, Colors.LimeGreen, Main);
                     break;
 
                 case 7:
@@ -191,13 +191,13 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -270;
-                    FlashControl(Main.btnDefault, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnDefault, Colors.LimeGreen, Main);
                     break;
 
 
                 case 8:
                     SelectTab(0);
-                    FlashControl(Main.tiOverview, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.tiOverview, Colors.LimeGreen, Main);
                     panel.Children.Add(new TextBlock
                                            {
                                                Text = "Now - please open your EVE Online client.\n" +
@@ -221,7 +221,7 @@ namespace Elinor
                     _popup.Placement = PlacementMode.Bottom;
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = 5;
-                    FlashForeground(Main.brdImportant);
+                    MiscTools.FlashForeground(Main.brdImportant);
                     break;
 
                 case 10:
@@ -237,8 +237,8 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -115;
-                    FlashControl(Main.gbAutocopy, Colors.LimeGreen, Main);
-                    FlashForeground(Main.cbAutoCopy);
+                    MiscTools.FlashControl(Main.gbAutocopy, Colors.LimeGreen, Main);
+                    MiscTools.FlashForeground(Main.cbAutoCopy);
                     break;
 
                 case 11:
@@ -254,8 +254,8 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -45;
                     _popup.HorizontalOffset = 5;
-                    FlashForeground(Main.lblBuy);
-                    FlashForeground(Main.lblSell);
+                    MiscTools.FlashForeground(Main.lblBuy);
+                    MiscTools.FlashForeground(Main.lblSell);
                     break;
 
                 case 12:
@@ -272,8 +272,8 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = -10;
-                    FlashControl(Main.dgSamples, Colors.LimeGreen, Main);
-                    FlashControl(Main.dgSamplesFive, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.dgSamples, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.dgSamplesFive, Colors.LimeGreen, Main);
                     break;
 
                 case 13:
@@ -290,7 +290,7 @@ namespace Elinor
                     _popup.IsOpen = true;
                     _popup.VerticalOffset = -5;
                     _popup.HorizontalOffset = 5;
-                    FlashControl(Main.btnStayOnTop, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnStayOnTop, Colors.LimeGreen, Main);
                     break;
 
                 case 14:
@@ -306,9 +306,9 @@ namespace Elinor
                     _popup.PlacementTarget = Main;
                     _popup.Placement = PlacementMode.Center;
                     _popup.IsOpen = true;
-                    FlashControl(Main.btnBeta, Colors.LimeGreen, Main);
-                    FlashControl(Main.btnAbout, Colors.LimeGreen, Main);
-                    FlashForeground(Main.tbStatus);
+                    MiscTools.FlashControl(Main.btnBeta, Colors.LimeGreen, Main);
+                    MiscTools.FlashControl(Main.btnAbout, Colors.LimeGreen, Main);
+                    MiscTools.FlashForeground(Main.tbStatus);
 
                     break;
             }
@@ -341,201 +341,6 @@ namespace Elinor
         private static void SelectTab(int i)
         {
             Main.Dispatcher.Invoke(new Action(delegate { Main.tcMain.SelectedIndex = i; }));
-        }
-
-        public static void FlashControl(Control control, Color flashColor, MainWindow main)
-        {
-            var thread = new Thread(new ThreadStart(delegate
-                                                        {
-                                                            Brush old = null;
-                                                            Color oldColor;
-                                                            main.Dispatcher.Invoke(
-                                                                new Action(delegate { old = control.BorderBrush; }));
-                                                            try
-                                                            {
-                                                                oldColor = ((SolidColorBrush) old).Color;
-                                                            }
-                                                            catch (Exception)
-                                                            {
-                                                                oldColor = Colors.WhiteSmoke;
-                                                            }
-
-                                                            for (int i = 0; i < 16; i++)
-                                                            {
-                                                                int ii = i%4;
-                                                                switch (ii)
-                                                                {
-                                                                    case 0:
-                                                                        main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate
-                                                                                    {
-                                                                                        control.BorderBrush =
-                                                                                            new LinearGradientBrush(
-                                                                                                flashColor, oldColor, 0);
-                                                                                    }));
-                                                                        break;
-
-                                                                    case 1:
-                                                                        main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate
-                                                                                    {
-                                                                                        control.BorderBrush =
-                                                                                            new SolidColorBrush(
-                                                                                                flashColor);
-                                                                                    }));
-                                                                        break;
-
-                                                                    case 2:
-                                                                        main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate
-                                                                                    {
-                                                                                        control.BorderBrush =
-                                                                                            new LinearGradientBrush(
-                                                                                                oldColor, flashColor, 0);
-                                                                                    }));
-                                                                        break;
-
-                                                                    case 3:
-                                                                        main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.BorderBrush = old; }));
-                                                                        break;
-                                                                }
-                                                                Thread.Sleep(175);
-                                                            }
-                                                            main.Dispatcher.Invoke(
-                                                                new Action(delegate { control.BorderBrush = old; }));
-                                                        }));
-            thread.Start();
-        }
-
-        public static void FlashForeground(Control control)
-        {
-            var thread = new Thread(new ThreadStart(delegate
-                                                        {
-                                                            Main.Dispatcher.Invoke(new Action(delegate { }));
-
-                                                            for (int i = 0; i < 16; i++)
-                                                            {
-                                                                int ii = i%4;
-                                                                switch (ii)
-                                                                {
-                                                                    case 0:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 1:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .5; }));
-                                                                        break;
-
-                                                                    case 2:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 3:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(delegate { control.Opacity = 1; }));
-                                                                        break;
-                                                                }
-                                                                Thread.Sleep(175);
-                                                            }
-                                                            Main.Dispatcher.Invoke(
-                                                                new Action(delegate { control.Opacity = 1; }));
-                                                        }));
-            thread.Start();
-        }
-
-        public static void FlashForeground(Decorator control)
-        {
-            var thread = new Thread(new ThreadStart(delegate
-                                                        {
-                                                            Main.Dispatcher.Invoke(new Action(delegate { }));
-
-                                                            for (int i = 0; i < 16; i++)
-                                                            {
-                                                                int ii = i%4;
-                                                                switch (ii)
-                                                                {
-                                                                    case 0:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 1:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .5; }));
-                                                                        break;
-
-                                                                    case 2:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 3:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(delegate { control.Opacity = 1; }));
-                                                                        break;
-                                                                }
-                                                                Thread.Sleep(175);
-                                                            }
-                                                            Main.Dispatcher.Invoke(
-                                                                new Action(delegate { control.Opacity = 1; }));
-                                                        }));
-            thread.Start();
-        }
-
-        public static void FlashForeground(UIElement control)
-        {
-            var thread = new Thread(new ThreadStart(delegate
-                                                        {
-                                                            Main.Dispatcher.Invoke(new Action(delegate { }));
-
-                                                            for (int i = 0; i < 16; i++)
-                                                            {
-                                                                int ii = i%4;
-                                                                switch (ii)
-                                                                {
-                                                                    case 0:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 1:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .5; }));
-                                                                        break;
-
-                                                                    case 2:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(
-                                                                                delegate { control.Opacity = .75; }));
-                                                                        break;
-
-                                                                    case 3:
-                                                                        Main.Dispatcher.Invoke(
-                                                                            new Action(delegate { control.Opacity = 1; }));
-                                                                        break;
-                                                                }
-                                                                Thread.Sleep(175);
-                                                            }
-                                                            Main.Dispatcher.Invoke(
-                                                                new Action(delegate { control.Opacity = 1; }));
-                                                        }));
-            thread.Start();
         }
 
         public static void Cancel()
