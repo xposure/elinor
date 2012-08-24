@@ -287,6 +287,9 @@ namespace Elinor
 
         private void WindowClosed(object sender, EventArgs e)
         {
+            Properties.Settings.Default.pin = btnStayOnTop.IsChecked != null && (bool) btnStayOnTop.IsChecked;
+            Properties.Settings.Default.autocopy = cbAutoCopy.IsChecked != null && (bool) cbAutoCopy.IsChecked;
+            Properties.Settings.Default.Save();
             Settings.SaveSettings(Settings);
         }
 
@@ -377,6 +380,9 @@ namespace Elinor
             var delayer = new BackgroundWorker();
             delayer.DoWork += (o, args) => Updates.CheckForUpdates();
             delayer.RunWorkerAsync();
+
+            btnStayOnTop.IsChecked = Properties.Settings.Default.pin;
+            cbAutoCopy.IsChecked = Properties.Settings.Default.autocopy;
         }
 
         private void TbStandingOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
