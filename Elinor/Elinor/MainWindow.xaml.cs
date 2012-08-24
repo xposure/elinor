@@ -211,6 +211,9 @@ namespace Elinor
         {
             Dispatcher.Invoke(new Action(delegate
                                              {
+                                                 lblItemName.Content = "Fetching...";
+                                                 lblItemName.ToolTip = string.Empty;
+
                                                  if (cbAutoCopy.IsChecked != null && (bool) cbAutoCopy.IsChecked)
                                                  {
                                                      var img = new BitmapImage();
