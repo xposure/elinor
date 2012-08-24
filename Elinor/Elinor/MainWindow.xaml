@@ -308,8 +308,17 @@
         <ToggleButton Height="17" Width="17" Name="btnStayOnTop" Content="Pin" FontSize="8"
                       ToolTip="Make window stay on top" Click="BtnStayOnTopClick" />
       </StatusBarItem>
-      <StatusBarItem HorizontalAlignment="Left">
-        <Elinor:DropDownButton Height="17" Width="17" x:Name="btnBeta" Content="β" FontSize="8"
+
+            <StatusBarItem HorizontalAlignment="Left">
+                <ToggleButton Height="17" Width="17" Name="btnUpdate" FontSize="15"
+                      ToolTip="Check for updates on startup" Click="BtnUpdateClick">
+                    <ToggleButton.Content>
+                        <TextBlock Margin="0, -12">⤦</TextBlock>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Left">
+        <Elinor:DropDownButton Height="17" Width="17" x:Name="btnBeta" FontSize="10"
                                ToolTip="Beta options">
           <Elinor:DropDownButton.DropDown>
             <ContextMenu>
@@ -325,17 +334,28 @@
               </MenuItem>
             </ContextMenu>
           </Elinor:DropDownButton.DropDown>
-        </Elinor:DropDownButton>
+                    <Elinor:DropDownButton.Content>
+                        <TextBlock Margin="0,-7">β</TextBlock>
+                    </Elinor:DropDownButton.Content>
+                </Elinor:DropDownButton>
 
       </StatusBarItem>
       <StatusBarItem HorizontalAlignment="Left">
-        <Button Height="17" Width="17" Name="btnTutorial" Content="!" FontSize="8" ToolTip="Start tutorial"
-                Click="BtnTutorialClick" />
-      </StatusBarItem>
+                <Button Height="17" Width="17" Name="btnTutorial" FontSize="11" ToolTip="Start tutorial"
+                Click="BtnTutorialClick">
+                    <Button.Content>
+                        <TextBlock Margin="0,-5">!</TextBlock>
+                    </Button.Content>
+                </Button>
+            </StatusBarItem>
       <StatusBarItem HorizontalAlignment="Left">
-        <Button Height="17" Width="17" Name="btnAbout" Content="?" FontSize="8" ToolTip="About Elinor"
-                Click="BtnAboutClick" />
-      </StatusBarItem>
+                <Button Height="17" Width="17" Name="btnAbout" FontSize="11" ToolTip="About Elinor"
+                Click="BtnAboutClick">
+                    <Button.Content>
+                        <TextBlock Margin="0,-5">?</TextBlock>
+                    </Button.Content>
+                </Button>
+            </StatusBarItem>
       <StatusBarItem HorizontalContentAlignment="Right">
         <TextBlock Text="" Name="tbStatus" MouseLeftButtonUp="TbStatusMouseLeftButtonUp" Cursor="Hand"
                    ToolTip="Click to delete logs" />

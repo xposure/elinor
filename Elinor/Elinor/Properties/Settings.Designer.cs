@@ -46,5 +46,17 @@ namespace Elinor.Properties {
                 this["showtutorial"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool checkforupdates {
+            get {
+                return ((bool)(this["checkforupdates"]));
+            }
+            set {
+                this["checkforupdates"] = value;
+            }
+        }
     }
 }

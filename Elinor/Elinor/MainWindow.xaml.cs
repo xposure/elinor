@@ -371,6 +371,12 @@ namespace Elinor
             Tutorial.ShowTutorialHint();
 
             UpdateProfiles();
+
+            btnUpdate.IsChecked = Properties.Settings.Default.checkforupdates;
+
+            var delayer = new BackgroundWorker();
+            delayer.DoWork += (o, args) => Updates.CheckForUpdates();
+            delayer.RunWorkerAsync();
         }
 
         private void TbStandingOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
@@ -749,6 +755,13 @@ namespace Elinor
                                                      };
                 clearCache.RunWorkerAsync();
             }
+        }
+
+        private void BtnUpdateClick(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.checkforupdates = btnUpdate.IsChecked != null && (bool) btnUpdate.IsChecked;
+            Properties.Settings.Default.Save();
+            if(Properties.Settings.Default.checkforupdates) Updates.CheckForUpdates();
         }
     }
 }
