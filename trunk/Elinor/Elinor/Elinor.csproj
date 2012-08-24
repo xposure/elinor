@@ -127,6 +127,7 @@
     <Compile Include="Serializer.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Tutorial.cs" />
+    <Compile Include="Updates.cs" />
     <Compile Include="VolumeFetcher.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -229,6 +230,7 @@
     <Resource Include="Images\20_64_1.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="currentVersion.xml" />
     <Content Include="EVE.Net.dll" />
     <Resource Include="Images\52_64_9.png" />
   </ItemGroup>
