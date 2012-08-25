@@ -288,7 +288,14 @@ namespace Elinor
         private void WindowClosed(object sender, EventArgs e)
         {
             Properties.Settings.Default.pin = btnStayOnTop.IsChecked != null && (bool) btnStayOnTop.IsChecked;
-            Properties.Settings.Default.autocopy = cbAutoCopy.IsChecked != null && (bool) cbAutoCopy.IsChecked;
+
+            if (cbAutoCopy.IsChecked == null || !(bool)cbAutoCopy.IsChecked)
+                Properties.Settings.Default.autocopy = 0;
+            else if (rbSell.IsChecked != null && (bool)rbSell.IsChecked)
+                Properties.Settings.Default.autocopy = 1;
+            else if(rbBuy.IsChecked != null && (bool) rbBuy.IsChecked)
+                Properties.Settings.Default.autocopy = -1;
+            
             Properties.Settings.Default.Save();
             Settings.SaveSettings(Settings);
         }
@@ -383,7 +390,18 @@ namespace Elinor
 
             btnStayOnTop.IsChecked = Properties.Settings.Default.pin;
             Topmost = Properties.Settings.Default.pin;
-            cbAutoCopy.IsChecked = Properties.Settings.Default.autocopy;
+
+            if (Properties.Settings.Default.autocopy == 0)
+            {
+                cbAutoCopy.IsChecked = false;
+                rbSell.IsChecked = true;
+            }
+            else
+            {
+                cbAutoCopy.IsChecked = true;
+                rbSell.IsChecked = Properties.Settings.Default.autocopy > 0;
+                rbBuy.IsChecked = Properties.Settings.Default.autocopy < 0;
+            }
         }
 
         private void TbStandingOnLostFocus(object sender, RoutedEventArgs routedEventArgs)
