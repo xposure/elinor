@@ -61,10 +61,10 @@ namespace Elinor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool autocopy {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int autocopy {
             get {
-                return ((bool)(this["autocopy"]));
+                return ((int)(this["autocopy"]));
             }
             set {
                 this["autocopy"] = value;
